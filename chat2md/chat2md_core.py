@@ -21,8 +21,7 @@ def detect_language(text):
 
 
 def is_probably_code(text):
-    return bool(re.search(
-        r'[\n;{}()]')) or "def " in text or "class " in text or "import " in text
+    return bool(re.search(r'[\n;{}()]', text)) or "def " in text or "class " in text or "import " in text
 
 
 def format_message(author, time_str, content):
