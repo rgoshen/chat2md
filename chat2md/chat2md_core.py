@@ -43,7 +43,6 @@ def format_message(author, time_str, content):
 
 
 def extract_messages_from_mapping(mapping):
-    # Flatten and order the message tree
     messages = []
     for node_id, node in mapping.items():
         if node.get("message"):
@@ -70,7 +69,11 @@ def parse_chat_json_to_markdown(input_path):
         mapping = convo.get("mapping", {})
         messages = extract_messages_from_mapping(mapping)
 
+        filename = f"{index:02d} - {title}.md"
+        heading_title = re.sub(r'^\d+\s*-\s*', '', filename).replace('.md', '').strip()
+
         markdown_lines = []
+        markdown_lines.append(f"# {heading_title}\n")
         last_date = None
 
         for message in messages:
@@ -93,7 +96,6 @@ def parse_chat_json_to_markdown(input_path):
 
             markdown_lines.append(format_message(author, time_str, content))
 
-        filename = f"{index:02d} - {title}.md"
         with open(filename, 'w', encoding='utf-8') as out_file:
             out_file.write("\n".join(markdown_lines))
 
