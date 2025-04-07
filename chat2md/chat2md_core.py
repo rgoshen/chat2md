@@ -69,7 +69,7 @@ def parse_chat_json_to_markdown(input_path):
         mapping = convo.get("mapping", {})
         messages = extract_messages_from_mapping(mapping)
 
-        filename = f"{index:02d} - {title}.md"
+        filename = f"{index:02d} - {title.rstrip('.')}.md"
         filename_clean = re.sub(r'[^\w\s-]', '', filename.replace('.md', '')).strip()
 
         markdown_lines = []
