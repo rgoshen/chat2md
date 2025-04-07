@@ -33,6 +33,8 @@ def is_probably_code(text):
 
 def format_message(author, time_str, content):
     author_name = "**Rick Goshen**" if author == "user" else "**ChatGPT**"
+    if not isinstance(content, str):
+        content = str(content)
     if is_probably_code(content):
         lang = detect_language(content)
         return f"{author_name} [{time_str}]:\n```{lang}\n{content.strip()}\n```\n"
