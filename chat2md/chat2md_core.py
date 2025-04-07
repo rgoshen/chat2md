@@ -39,7 +39,10 @@ def extract_messages_from_mapping(mapping):
     for node_id, node in mapping.items():
         if node.get("message"):
             messages.append(node["message"])
-    return sorted(messages, key=lambda m: m.get("create_time", 0))
+    return sorted(
+        [m for m in messages if m.get("create_time") is not None],
+        key=lambda m: m["create_time"]
+    )
 
 
 def sanitize_filename(name):
