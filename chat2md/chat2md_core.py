@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime
 
+
 def detect_language(text):
     text = text.strip()
     if text.startswith("{") or text.startswith("["):
@@ -18,8 +19,11 @@ def detect_language(text):
         return "javascript"
     return "text"
 
+
 def is_probably_code(text):
-    return bool(re.search(r'[\n;{}()]')) or "def " in text or "class " in text or "import " in text
+    return bool(re.search(
+        r'[\n;{}()]')) or "def " in text or "class " in text or "import " in text
+
 
 def format_message(author, time_str, content):
     author_name = "**Rick Goshen**" if author == "user" else "**ChatGPT**"
@@ -28,6 +32,7 @@ def format_message(author, time_str, content):
         return f"{author_name} [{time_str}]:\n```{lang}\n{content.strip()}\n```\n"
     else:
         return f"{author_name} [{time_str}]:\n{content.strip()}\n"
+
 
 def parse_chat_json_to_markdown(json_path, output_path):
     with open(json_path, 'r', encoding='utf-8') as f:

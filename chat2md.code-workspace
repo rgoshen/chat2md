@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.formatting.provider": "autopep8",
+    "editor.formatOnSave": true,
+    "python.formatting.autopep8Path": ".venv/bin/autopep8",
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.python"
+    }
+  }
+}
