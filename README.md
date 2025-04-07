@@ -35,6 +35,12 @@ cd chat2md
 pip install .
 ```
 
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
 > ✅ This makes `chat2md` available globally from your terminal.
 
 ## 🧪 Usage
@@ -91,13 +97,10 @@ def add(a, b): return a + b
 def add(a, b):
     return a + b
 ```
-````
-
-```
 
 ## 📂 Project Structure
 
-```
+```bash
 
 chat2md/
 ├── chat2md/
@@ -113,7 +116,7 @@ chat2md/
 ├── LICENSE
 └── .gitignore
 
-````
+```
 
 ## 🧪 Development
 
@@ -122,6 +125,7 @@ Install the dev environment:
 ```bash
 pip install -e .
 pip install flake8
+```
 ````
 
 Run linter:
