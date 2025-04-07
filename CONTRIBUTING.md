@@ -7,10 +7,17 @@ Whether it's bug reports, new features, documentation, or just ideas — we welc
 ## 🧰 Getting Started
 
 1. Fork the repository and clone your fork.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes, and write tests if applicable.
-4. Run the linter (`flake8`) to ensure style consistency.
-5. Submit a pull request with a clear description.
+2. Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+3. Create a new branch for your feature or bugfix.
+4. Make your changes, and write tests if applicable.
+5. Run the linter (`flake8`) to ensure style consistency.
+6. Submit a pull request with a clear description.
 
 ## 🧪 Code Style
 

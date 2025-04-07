@@ -20,6 +20,13 @@ Whether you're documenting technical conversations, turning chats into blog post
 
 ## 📦 Installation
 
+It is recommended to use a virtual environment for installation:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
 ### 1. Clone and install locally
 
 ```bash
