@@ -64,10 +64,10 @@ def parse_chat_json_to_markdown(input_path):
         messages = extract_messages_from_mapping(mapping)
 
         filename = f"{index:02d} - {title}.md"
-        heading_title = re.sub(r'^\d+\s*-\s*', '', filename).replace('.md', '').strip()
-        heading_title = re.sub(r'[^\w\s-]', '', heading_title).strip()  # Remove trailing punctuation
+        filename_clean = re.sub(r'[^\w\s-]', '', filename.replace('.md', '')).strip()
 
         markdown_lines = []
+        heading_title = filename_clean
         markdown_lines.append(f"# {heading_title}\n")
         last_date = None
 
