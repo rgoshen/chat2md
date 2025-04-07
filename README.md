@@ -155,3 +155,36 @@ chat2md tests/test_sample.json tests/output.md
 ## 🙌 Contributions Welcome
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
+
+## ⚙️ Advanced CLI Options
+
+You can include additional metadata in your Markdown output using the `--full-meta` flag.
+
+### Options
+
+| Flag                | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `-f`, `--full-meta` | Include rich metadata (YAML frontmatter, timestamps, message IDs) |
+
+### Examples
+
+Basic usage:
+
+```bash
+python cli.py conversations.json
+```
+
+With full metadata:
+
+```bash
+python cli.py conversations.json --full-meta
+# or the short version:
+python cli.py conversations.json -f
+```
+
+Each conversation will be exported to its own `.md` file in the current working directory.
+File names are auto-generated from the conversation title and ID, for example:
+
+```bash
+My_Conversation_Title_a1b2c3d4.md
+```
