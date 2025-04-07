@@ -70,7 +70,7 @@ def parse_chat_json_to_markdown(input_path):
         messages = extract_messages_from_mapping(mapping)
 
         filename = f"{index:02d} - {title}.md"
-        heading_title = re.sub(r'^\d+\s*-\s*', '', filename).replace('.md', '').strip()
+        heading_title = title.strip() or "Untitled Conversation"
 
         markdown_lines = []
         markdown_lines.append(f"# {heading_title}\n")
