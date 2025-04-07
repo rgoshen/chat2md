@@ -93,11 +93,9 @@ def add(a, b):
 ```
 ````
 
-```
+```bash
 
 ## 📂 Project Structure
-
-```
 
 chat2md/
 ├── chat2md/
@@ -113,7 +111,7 @@ chat2md/
 ├── LICENSE
 └── .gitignore
 
-````
+```
 
 ## 🧪 Development
 
@@ -122,7 +120,7 @@ Install the dev environment:
 ```bash
 pip install -e .
 pip install flake8
-````
+```
 
 Run linter:
 
