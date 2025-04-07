@@ -68,8 +68,7 @@ def parse_chat_json_to_markdown(input_path):
         heading_title = re.sub(r'[^\w\s-]', '', heading_title).strip()  # Remove trailing punctuation
 
         markdown_lines = []
-        markdown_lines.append(f"# {heading_title}
-")
+        markdown_lines.append(f"# {heading_title}\n")
         last_date = None
 
         for message in messages:
