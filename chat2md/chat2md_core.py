@@ -1,7 +1,7 @@
-import os
 import re
 import json
 from datetime import datetime
+
 
 def detect_language(text):
     text = text.strip()
@@ -19,8 +19,10 @@ def detect_language(text):
         return "javascript"
     return "text"
 
+
 def is_probably_code(text):
     return bool(re.search(r'[\n;{}()]', text)) or "def " in text or "class " in text or "import " in text
+
 
 def format_message(author, time_str, content):
     author_name = "**Rick Goshen**" if author == "user" else "**ChatGPT**"
@@ -30,6 +32,7 @@ def format_message(author, time_str, content):
     else:
         return f"{author_name} [{time_str}]:\n{content.strip()}\n"
 
+
 def extract_messages_from_mapping(mapping):
     # Flatten and order the message tree
     messages = []
@@ -38,8 +41,10 @@ def extract_messages_from_mapping(mapping):
             messages.append(node["message"])
     return sorted(messages, key=lambda m: m.get("create_time", 0))
 
+
 def sanitize_filename(name):
     return re.sub(r'[\\/*?:"<>|]', "_", name).strip() or "Untitled"
+
 
 def parse_chat_json_to_markdown(input_path):
     with open(input_path, 'r', encoding='utf-8') as f:
