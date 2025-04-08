@@ -1,21 +1,40 @@
 [
   {
     "title": "Test Chat",
+    "id": "abc123-test-id",
+    "create_time": 1712413000.0,
+    "update_time": 1712413600.0,
     "mapping": {
       "msg1": {
         "message": {
-          "author": { "role": "user" },
+          "id": "msg1",
+          "author": {
+            "role": "user"
+          },
           "create_time": 1712413260.123,
-          "content": { "parts": ["print('Hello world')"] }
+          "content": {
+            "parts": [
+              "print('Hello world')"
+            ]
+          },
+          "metadata": {
+            "model_slug": "gpt-4"
+          }
         }
       },
       "msg2": {
         "message": {
-          "author": { "role": "assistant" },
+          "id": "msg2",
+          "author": {
+            "role": "assistant"
+          },
           "create_time": 1712413290.456,
           "content": {
-            "parts": ["Here's Python:\n```python\nprint('Hello world')\n```"]
-          }
+            "parts": [
+              "Here's Python:\n```python\nprint('Hello world')\n```"
+            ]
+          },
+          "metadata": {}
         }
       }
     }
