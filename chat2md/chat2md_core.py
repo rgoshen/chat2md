@@ -71,7 +71,11 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
             role = msg.get("author", {}).get("role", "unknown")
             author = "**Rick Goshen**" if role == "user" else "**ChatGPT**"
             time_str = datetime.utcfromtimestamp(msg.get("create_time")).strftime("%Y-%m-%d %H:%M UTC")
-            content = msg.get("content", {}).get("parts", [""])[0].strip()
+            parts = msg.get("content", {}).get("parts", [""])
+            if isinstance(parts, list) and parts and isinstance(parts[0], str):
+                content = parts[0].strip()
+            else:
+                content = ""
 
             if full_meta:
                 lines.append(f"### {author} ({time_str})")
