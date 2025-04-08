@@ -35,7 +35,7 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    for conv in data.get("conversations", []):
+    for conv in data:
         title = conv.get("title", "Untitled")
         conv_id = conv.get("id", "")[:8]
         filename = f"{'_'.join(title.strip().split())[:50]}_{conv_id}.md"
