@@ -1,12 +1,13 @@
 name: Python Lint & Test
 
 on:
-  push:
-    branches:
-      - '**' # All branches
   pull_request:
     branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -31,7 +32,6 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    if: always()
     steps:
       - uses: actions/checkout@v3
 
