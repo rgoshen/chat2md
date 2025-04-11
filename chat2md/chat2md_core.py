@@ -30,15 +30,21 @@ def is_probably_code(text):
         or "import " in text
     )
 
-
+# === Main Entry Point: Parses ChatGPT-style JSON into Markdown ===
 def parse_chat_json_to_markdown(json_path, full_meta=False):
     with open(json_path, "r", encoding="utf-8") as f:
+        # Load the full list of conversation objects from the JSON file
         data = json.load(f)
 
+    # Loop through each conversation in the exported JSON
     for conv in data:
+        # Extract title and sanitize for safe file naming
+        # Remove unsafe characters and limit filename length
         title = conv.get("title", "Untitled")
         conv_id = conv.get("id", "")[:8]
-        filename = f"{'_'.join(title.strip().split())[:50]}_{conv_id}.md"
+        safe_title = re.sub(r'[^\w\s-]', '', title).strip()  # remove unsafe chars
+        # Format filename as: <cleaned_title>_<conversation_id>.md
+        filename = f"{'_'.join(safe_title.split())[:50]}_{conv_id}.md"
 
         created = datetime.utcfromtimestamp(conv.get("create_time", 0)).strftime("%Y-%m-%d %H:%M UTC")
         updated = datetime.utcfromtimestamp(conv.get("update_time", 0)).strftime("%Y-%m-%d %H:%M UTC")
@@ -53,8 +59,10 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
         messages = sorted([m for m in messages if m.get("create_time")
                           is not None], key=lambda m: m["create_time"])
 
+        # Collect all lines of the Markdown file for this conversation
         lines = []
 
+        # If the --full-meta flag is set, prepend YAML frontmatter
         if full_meta:
             lines.append("---")
             lines.append(f'title: "{title}"')
@@ -77,6 +85,7 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
             else:
                 content = ""
 
+            # If the --full-meta flag is set, prepend YAML frontmatter
             if full_meta:
                 lines.append(f"### {author} ({time_str})")
                 lines.append(f"<!-- msg_id: {msg.get('id')} -->")
@@ -91,6 +100,7 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
 
             lines.append("\n---\n")
 
+        # Write the converted Markdown lines to the output file
         with open(filename, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
         print(f"✅ Created: {filename}")

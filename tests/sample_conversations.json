@@ -38,5 +38,30 @@
         }
       }
     }
+  },
+  {
+    "title": "CI/CD with GitHub!",
+    "id": "abc123-test-id",
+    "create_time": 1712413000.0,
+    "update_time": 1712413600.0,
+    "mapping": {
+      "msg1": {
+        "message": {
+          "id": "msg1",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1712413260.123,
+          "content": {
+            "parts": [
+              "This is a test message"
+            ]
+          },
+          "metadata": {
+            "model_slug": "gpt-4"
+          }
+        }
+      }
+    }
   }
 ]
