@@ -265,12 +265,14 @@ chat2md/
 
 ### 🧪 Running Tests
 
+A `pytest.ini` file is included to automatically set the correct Python path.
+
 #### 🧪 Run all tests
 
-To run all tests:
+Simply run:
 
 ```bash
-pytest tests/
+pytest
 ```
 
 #### 🎯 Running a Specific Test
@@ -281,10 +283,10 @@ To run a specific test file:
 pytest tests/test_standard_output.py
 ```
 
-To run a specific test function:
+To run a specific test file:
 
 ```bash
-pytest tests/test_standard_output.py::test_standard_markdown_output
+pytest tests/test_standard_output.py
 ```
 
 You can also add `-v` for verbose output or `-x` to stop on the first failure:
