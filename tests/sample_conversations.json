@@ -13,9 +13,7 @@
           },
           "create_time": 1712413260.123,
           "content": {
-            "parts": [
-              "print('Hello world')"
-            ]
+            "parts": ["print('Hello world')"]
           },
           "metadata": {
             "model_slug": "gpt-4"
@@ -30,11 +28,34 @@
           },
           "create_time": 1712413290.456,
           "content": {
-            "parts": [
-              "Here's Python:\n```python\nprint('Hello world')\n```"
-            ]
+            "parts": ["Here's Python:\n```python\nprint('Hello world')\n```"]
           },
           "metadata": {}
+        }
+      }
+    }
+  },
+  {
+    "title": "CI/CD with GitHub!",
+    "id": "abc123-test-id",
+    "create_time": 1712413000.0,
+    "update_time": 1712413600.0,
+    "mapping": {
+      "msg3": {
+        "message": {
+          "id": "msg3",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1712413260.123,
+          "content": {
+            "parts": [
+              "This is a test message\n\n```python\nprint('CI/CD check')\n```"
+            ]
+          },
+          "metadata": {
+            "model_slug": "gpt-4"
+          }
         }
       }
     }
