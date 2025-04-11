@@ -42,12 +42,14 @@ autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
 
 ## 🧪 Running Tests
 
+A `pytest.ini` file is included to automatically configure Python paths and test discovery.
+
 ### 🧪 Run all tests
 
-To run all tests:
+From the project root, run:
 
 ```bash
-pytest tests/
+pytest
 ```
 
 ### 🎯 Running a Specific Test
