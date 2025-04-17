@@ -3,17 +3,11 @@ import json
 from datetime import datetime
 from chat2md.utils.text_tools import detect_language, is_probably_code
 
-# === Main Entry Point: Parses ChatGPT-style JSON into Markdown ===
+# === Parses a single ChatGPT conversation mapping into Markdown ===
 
-
-def parse_chat_json_to_markdown(json_path, full_meta=False):
-    # Load the full ChatGPT conversation export file
-    with open(json_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
+def parse_conversation_to_markdown(mapping, full_meta=False):
     output = []
-    mapping = data["mapping"]  # Dictionary of messages keyed by node ID
-    last_date = None  # Track the last date for inserting date headers
+    last_date = None
 
     for node_id in mapping:
         node = mapping[node_id]
@@ -50,5 +44,4 @@ def parse_chat_json_to_markdown(json_path, full_meta=False):
         else:
             output.append(content.strip() + "\n")
 
-    # Print markdown to stdout (can be redirected to a file)
-    print("\n".join(output))
+    return "\n".join(output)
