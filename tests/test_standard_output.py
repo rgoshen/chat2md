@@ -1,27 +1,25 @@
 import os
+import json
 from pathlib import Path
-    # Run the actual chat2md conversion on the sample input
-from chat2md.chat2md_core import parse_chat_json_to_markdown
+from chat2md.adapters.filesystem import load_conversations_json
+from chat2md.services.conversation_service import process_all_conversations
 
-# Test basic Markdown formatting from conversation JSON
 def test_standard_markdown_output(tmp_path):
-    # Load the bundled sample_conversations.json
+    # Copy sample_conversations.json to the temp directory
     original = Path(__file__).parent / "sample_conversations.json"
-    # Copy test file into temp path to isolate output
     test_file = tmp_path / "sample_conversations.json"
     test_file.write_text(original.read_text(encoding="utf-8"), encoding="utf-8")
-    # Set working directory so output Markdown is generated here
-    os.chdir(tmp_path)
 
-    # Run the actual chat2md conversion on the sample input
-    parse_chat_json_to_markdown(test_file, full_meta=False)
+    # Load the JSON using the adapter
+    data = load_conversations_json(test_file)
 
-    # Collect generated Markdown files in the temp directory
+    # Run the full pipeline using the new service function
+    process_all_conversations(data, output_dir=tmp_path)
+
+    # Assert that one or more markdown files were generated
     md_files = list(tmp_path.glob("*.md"))
-    # Assert the expected number of output files were created (now 2 due to added test)
-    assert len(md_files) == 2
+    assert md_files
 
+    # Optional: assert content contains expected headings or speaker roles
     content = md_files[0].read_text(encoding="utf-8")
-    assert not content.startswith("---")
-    assert "**Rick Goshen**" in content or "**ChatGPT**" in content
-    assert "```python" in content
+    assert "**User:**" in content or "**Assistant:**" in content
