@@ -243,21 +243,36 @@ def add(a, b):
 
 ```bash
 
-chat2md/
-├── chat2md/
-│ ├── **init**.py
-│ ├── chat2md_core.py
-│ └── cli.py
-├── tests/
-│ ├── sample_conversations.json
-| ├── test_full_meta.py
-| └── test_standard_output.py
-├── .github/workflows/
-│ └── python.yml
-├── setup.py
-├── README.md
-├── LICENSE
-└── .gitignore
+chat2md/                          # All production code
+├── __init__.py
+├── cli.py                        # CLI entry point (argparse)
+├── adapters/
+│   ├── __init__.py
+│   └── filesystem.py             # File I/O logic for reading JSON input
+├── services/
+│   ├── __init__.py
+│   └── conversation_service.py   # Orchestrates parsing all conversations
+├── parsers/
+│   ├── __init__.py
+│   └── conversation_parser.py    # Parses a single conversation into Markdown
+├── utils/
+│   ├── __init__.py
+│   └── text_tools.py             # Language detection & code heuristics
+
+tests/                            # Root-level tests for modularity
+├── __init__.py
+├── conftest.py                   # Shared pytest fixtures (sample JSON loader)
+├── test_standard_output.py       # Tests basic markdown formatting
+├── test_full_meta.py             # Tests full-meta markdown with timestamps
+├── test_filename_sanitization.py # Tests for filename safety & formatting
+└── adapters/
+    └── test_filesystem.py        # Tests adapter layer (bad file, bad JSON)
+
+tests/fixtures/
+└── sample_conversations.json     # Sample ChatGPT export used in all tests
+
+setup.py                          # Project/package config for installation
+README.md                         # Project documentation
 
 ```
 
