@@ -294,6 +294,10 @@ autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
 - [ ] Option to anonymize names or redact sensitive content
 - [ ] Obsidian-flavored Markdown compatibility
 
+## 📄 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a full list of changes and version history.
+
 ## 🪪 License
 
 [MIT](LICENSE)
