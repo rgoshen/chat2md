@@ -6,7 +6,7 @@ from chat2md.services.conversation_service import process_all_conversations
 
 def test_filename_sanitization(tmp_path):
     # Load the original sample file
-    original = Path(__file__).parent / "sample_conversations.json"
+    original = Path(__file__).parent / "fixtures" / "sample_conversations.json"
     test_file = tmp_path / "sample_conversations.json"
     test_file.write_text(original.read_text(encoding="utf-8"), encoding="utf-8")
 

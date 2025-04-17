@@ -5,7 +5,7 @@ from chat2md.services.conversation_service import process_all_conversations
 
 def test_full_meta_output(tmp_path):
     # Copy sample_conversations.json into the temp directory
-    original = Path(__file__).parent / "sample_conversations.json"
+    original = Path(__file__).parent / "fixtures" /"sample_conversations.json"
     test_file = tmp_path / "sample_conversations.json"
     test_file.write_text(original.read_text(encoding="utf-8"), encoding="utf-8")
 

@@ -6,7 +6,7 @@ from chat2md.services.conversation_service import process_all_conversations
 
 def test_standard_markdown_output(tmp_path):
     # Copy sample_conversations.json to the temp directory
-    original = Path(__file__).parent / "sample_conversations.json"
+    original = Path(__file__).parent / "fixtures" / "sample_conversations.json"
     test_file = tmp_path / "sample_conversations.json"
     test_file.write_text(original.read_text(encoding="utf-8"), encoding="utf-8")
 
