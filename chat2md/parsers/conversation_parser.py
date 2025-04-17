@@ -5,6 +5,7 @@ from chat2md.utils.text_tools import detect_language, is_probably_code
 
 # === Parses a single ChatGPT conversation mapping into Markdown ===
 
+
 def parse_conversation_to_markdown(mapping, full_meta=False):
     output = []
     last_date = None

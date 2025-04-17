@@ -4,6 +4,8 @@ import re
 
 # Detect the programming or content language of a given text snippet.
 # This is used for properly formatting code blocks in Markdown.
+
+
 def detect_language(text):
     text = text.strip()
     checks = [
@@ -20,6 +22,8 @@ def detect_language(text):
 
 # Heuristic to determine if the given content is likely source code.
 # Helps decide whether to wrap the content in a Markdown code block.
+
+
 def is_probably_code(text):
     if not isinstance(text, str):
         return False
