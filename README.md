@@ -43,7 +43,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ### 3. Install all dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -e .[dev]
 ```
 
 ## 🚀 Optional: Install with `pipx` (Recommended for CLI Use)
@@ -66,31 +66,25 @@ cd chat2md
 pipx install .
 ```
 
-📝 Tip: You can also reinstall with the --editable . flag if you want live development changes reflected without reinstalling:
+To reinstall with live-edit support:
 
 ```bash
 pipx install --editable . --force
 ```
 
-### 🛠️ Install chat2md globally
-
-If you don't want to or need to clone the repo then (still need pipx installed):
+### Install chat2md directly from GitHub
 
 ```bash
 pipx install git+https://github.com/rgoshen/chat2md.git
 ```
 
-Now you can run it from anywhere (see [Usage](#🧪-Usage)).
-
-### 🔄 Update or Uninstall `chat2md` (pipx)
-
-To update your installed version after making local changes:
+To update:
 
 ```bash
 pipx reinstall chat2md
 ```
 
-If you need to uninstall:
+To uninstall:
 
 ```bash
 pipx uninstall chat2md
@@ -99,16 +93,7 @@ pipx uninstall chat2md
 ## 🧪 Usage
 
 ```bash
-chat2md path/to/chat.json output.md
-```
-
-- `chat.json` — ChatGPT-style export with messages
-- `output.md` — Output Markdown file
-
-### Example
-
-```bash
-chat2md tests/test_sample.json chat_transcript.md
+chat2md path/to/chat.json
 ```
 
 ### ⚙️ Advanced CLI Options
@@ -139,14 +124,14 @@ chat2md path/to/conversations.json
 
 To include full metadata (YAML frontmatter, timestamps, and message IDs):
 
+| Flag                | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `-f`, `--full-meta` | Include rich metadata (YAML frontmatter, timestamps, message IDs) |
+
+### Example
+
 ```bash
-python3 chat2md.py path/to/conversations.json --full-meta
-# or the short version:
-python3 chat2md.py path/to/conversations.json -f
-# or, if installed via pipx
-chat2md.py path/to/conversations.json --full-meta
-# or
-python3 chat2md.py path/to/conversations.json -f
+chat2md path/to/conversations.json -f
 ```
 
 Each conversation will be exported to its own `.md` file in the current working directory.
@@ -278,50 +263,28 @@ README.md                         # Project documentation
 
 ## 🧪 Development
 
-### 🧪 Running Tests
-
-A `pytest.ini` file is included to automatically set the correct Python path.
-
-#### 🧪 Run all tests
-
-Simply run:
+### Run all tests
 
 ```bash
 pytest
 ```
 
-#### 🎯 Running a Specific Test
-
-To run a specific test file:
+### Run specific test
 
 ```bash
 pytest tests/test_standard_output.py
 ```
 
-To run a specific test file:
-
-```bash
-pytest tests/test_standard_output.py
-```
-
-You can also add `-v` for verbose output or `-x` to stop on the first failure:
-
-```bash
-pytest -v tests/test_standard_output.py::test_standard_markdown_output
-```
-
-### 🧼 Code Formatting
-
-To automatically fix linting and formatting issues:
-
-```bash
-autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
-```
-
-You can also run the linter manually:
+### Linting
 
 ```bash
 flake8 chat2md
+```
+
+### Format (optional)
+
+```bash
+autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
 ```
 
 ## 🚀 Roadmap

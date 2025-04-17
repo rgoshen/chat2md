@@ -14,27 +14,40 @@ python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-3. Install all dependencies
+3. Install the project with development dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install -e .[dev]
 ```
 
-4. Create a new branch for your feature or bugfix.
-5. Make your changes, and write tests if applicable.
-6. Run the linter (`flake8`) to ensure style consistency.
-7. Run all tests and verify they all pass.
-8. Submit a pull request with a clear description.
+4. Create a new branch for your feature or bugfix:
+
+```bash
+git checkout -b feat/your-feature-name
+```
+
+5. Make your changes, and write/update tests if applicable.
+6. Run the linter and formatter to ensure style consistency.
+7. Run all tests and verify they pass.
+8. Commit and push your changes:
+
+```bash
+git add .
+git commit -m "feat: describe your change"
+git push origin feat/your-feature-name
+```
+
+9. Submit a pull request with a clear description of your change.
 
 ## 🧪 Code Style
 
-We use [PEP8](https://peps.python.org/pep-0008/) with `flake8`. Run it with:
+We follow [PEP8](https://peps.python.org/pep-0008/) and use:
 
 ```bash
 flake8 chat2md
 ```
 
-To automatically fix linting and formatting issues:
+To auto-format (optional):
 
 ```bash
 autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
@@ -42,47 +55,40 @@ autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
 
 ## 🧪 Running Tests
 
-A `pytest.ini` file is included to automatically configure Python paths and test discovery.
-
-### 🧪 Run all tests
-
-From the project root, run:
+Run all tests:
 
 ```bash
 pytest
 ```
 
-### 🎯 Running a Specific Test
-
-To run a specific test file:
+Run a specific test file:
 
 ```bash
 pytest tests/test_standard_output.py
 ```
 
-To run a specific test function:
-
-```bash
-pytest tests/test_standard_output.py::test_standard_markdown_output
-```
-
-You can also add `-v` for verbose output or `-x` to stop on the first failure:
+Run a specific test function with verbose output:
 
 ```bash
 pytest -v tests/test_standard_output.py::test_standard_markdown_output
 ```
 
-## ✅ Checklist
+Stop on first failure:
 
-Before submitting your contribution:
+```bash
+pytest -x
+```
 
-- [ ] My code follows the style guide
-- [ ] I have performed a self-review of my code
-- [ ] I have commented my code, especially in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] All tests pass
+## ✅ Contribution Checklist
 
-## 💬 Questions?
+- [ ] Code follows style guidelines
+- [ ] All existing and new tests pass
+- [ ] Tests are added or updated for new logic
+- [ ] Code is well-commented and clear
+- [ ] Pull request describes the change and links to any issues (if applicable)
 
-Open an issue or reach out to [@rgoshen](https://github.com/rgoshen).
+## 🙋 Questions?
+
+Feel free to open an issue or reach out to [@rgoshen](https://github.com/rgoshen).
+
+Thanks for helping make `chat2md` awesome! 🙌
