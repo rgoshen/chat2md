@@ -2,7 +2,7 @@ from chat2md.services.conversation_service import process_all_conversations
 
 def test_full_meta_output(tmp_path, sample_conversation_dict):
     # Run full-meta markdown export using in-memory fixture
-    process_all_conversations(sample_conversation_dict, output_dir=tmp_path)
+    process_all_conversations(sample_conversation_dict, output_dir=tmp_path, full_meta=true)
 
     md_files = list(tmp_path.glob("*.md"))
     assert md_files
