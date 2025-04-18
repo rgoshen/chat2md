@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Create Release from CHANGELOG
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Extract Changelog for this tag
+        id: changelog
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          awk "/^## \\[${TAG_NAME//./\\.}\\]/,/^## /" CHANGELOG.md | head -n -1 > RELEASE_NOTES.md || echo "No changelog entry found for $TAG_NAME" > RELEASE_NOTES.md
+
+      - name: Create GitHub Release with changelog
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE_NOTES.md

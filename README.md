@@ -2,7 +2,9 @@
 
 [![Build](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/rgoshen/chat2md)
+[![GitHub release](https://img.shields.io/github/v/release/rgoshen/chat2md?sort=semver)](https://github.com/rgoshen/chat2md/releases)
+[![Tests](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/python.yml)
+[![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
 
 **chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted Markdown transcripts.
 
@@ -43,7 +45,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ### 3. Install all dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -e .[dev]
 ```
 
 ## 🚀 Optional: Install with `pipx` (Recommended for CLI Use)
@@ -66,31 +68,25 @@ cd chat2md
 pipx install .
 ```
 
-📝 Tip: You can also reinstall with the --editable . flag if you want live development changes reflected without reinstalling:
+To reinstall with live-edit support:
 
 ```bash
 pipx install --editable . --force
 ```
 
-### 🛠️ Install chat2md globally
-
-If you don't want to or need to clone the repo then (still need pipx installed):
+### Install chat2md directly from GitHub
 
 ```bash
 pipx install git+https://github.com/rgoshen/chat2md.git
 ```
 
-Now you can run it from anywhere (see [Usage](#🧪-Usage)).
-
-### 🔄 Update or Uninstall `chat2md` (pipx)
-
-To update your installed version after making local changes:
+To update:
 
 ```bash
 pipx reinstall chat2md
 ```
 
-If you need to uninstall:
+To uninstall:
 
 ```bash
 pipx uninstall chat2md
@@ -99,16 +95,7 @@ pipx uninstall chat2md
 ## 🧪 Usage
 
 ```bash
-chat2md path/to/chat.json output.md
-```
-
-- `chat.json` — ChatGPT-style export with messages
-- `output.md` — Output Markdown file
-
-### Example
-
-```bash
-chat2md tests/test_sample.json chat_transcript.md
+chat2md path/to/chat.json
 ```
 
 ### ⚙️ Advanced CLI Options
@@ -139,14 +126,14 @@ chat2md path/to/conversations.json
 
 To include full metadata (YAML frontmatter, timestamps, and message IDs):
 
+| Flag                | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `-f`, `--full-meta` | Include rich metadata (YAML frontmatter, timestamps, message IDs) |
+
+### Example
+
 ```bash
-python3 chat2md.py path/to/conversations.json --full-meta
-# or the short version:
-python3 chat2md.py path/to/conversations.json -f
-# or, if installed via pipx
-chat2md.py path/to/conversations.json --full-meta
-# or
-python3 chat2md.py path/to/conversations.json -f
+chat2md path/to/conversations.json -f
 ```
 
 Each conversation will be exported to its own `.md` file in the current working directory.
@@ -243,70 +230,67 @@ def add(a, b):
 
 ```bash
 
-chat2md/
-├── chat2md/
-│ ├── **init**.py
-│ ├── chat2md_core.py
-│ └── cli.py
-├── tests/
-│ ├── sample_conversations.json
-| ├── test_full_meta.py
-| └── test_standard_output.py
-├── .github/workflows/
-│ └── python.yml
-├── setup.py
-├── README.md
-├── LICENSE
-└── .gitignore
+chat2md/                          # All production code
+├── __init__.py
+├── cli.py                        # CLI entry point (argparse)
+├── adapters/
+│   ├── __init__.py
+│   └── filesystem.py             # File I/O logic for reading JSON input
+├── services/
+│   ├── __init__.py
+│   └── conversation_service.py   # Orchestrates parsing all conversations
+├── parsers/
+│   ├── __init__.py
+│   └── conversation_parser.py    # Parses a single conversation into Markdown
+├── utils/
+│   ├── __init__.py
+│   └── text_tools.py             # Language detection & code heuristics
+│   └── filename_tools.py          # Filename sanitization logic
+
+
+tests/                            # Root-level tests for modularity
+├── __init__.py
+├── conftest.py                   # Shared pytest fixtures (sample JSON loader)
+├── test_standard_output.py       # Tests basic markdown formatting
+├── test_full_meta.py             # Tests full-meta markdown with timestamps
+├── test_filename_sanitization.py # Tests for filename safety & formatting
+├── adapters/
+│    └── test_filesystem.py        # Tests adapter layer (bad file, bad JSON)
+├── utils/
+│    ├── test_filename_tools.py     # Tests for sanitize_filename
+│    └── test_text_tools.py
+└── fixtures/
+     └── sample_conversations.json # Sample ChatGPT export used in all tests
+
+setup.py                          # Project/package config for installation
+README.md                         # Project documentation
 
 ```
 
 ## 🧪 Development
 
-### 🧪 Running Tests
-
-A `pytest.ini` file is included to automatically set the correct Python path.
-
-#### 🧪 Run all tests
-
-Simply run:
+### Run all tests
 
 ```bash
 pytest
 ```
 
-#### 🎯 Running a Specific Test
-
-To run a specific test file:
+### Run specific test
 
 ```bash
 pytest tests/test_standard_output.py
 ```
 
-To run a specific test file:
-
-```bash
-pytest tests/test_standard_output.py
-```
-
-You can also add `-v` for verbose output or `-x` to stop on the first failure:
-
-```bash
-pytest -v tests/test_standard_output.py::test_standard_markdown_output
-```
-
-### 🧼 Code Formatting
-
-To automatically fix linting and formatting issues:
-
-```bash
-autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
-```
-
-You can also run the linter manually:
+### Linting
 
 ```bash
 flake8 chat2md
+```
+
+### Format (optional)
+
+```bash
+autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
 ```
 
 ## 🚀 Roadmap
@@ -315,6 +299,10 @@ flake8 chat2md
 - [ ] Support different output formats (HTML, PDF)
 - [ ] Option to anonymize names or redact sensitive content
 - [ ] Obsidian-flavored Markdown compatibility
+
+## 📄 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a full list of changes and version history.
 
 ## 🪪 License
 

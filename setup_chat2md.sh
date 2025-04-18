@@ -1,28 +1,32 @@
 #!/bin/bash
-
-# Exit on error
 set -e
 
-echo "🔧 Setting up chat2md local development environment..."
+echo "Setting up chat2md (macOS/Linux)..."
 
 # Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install the chat2md package
+# Install project and dev tools
 pip install --upgrade pip
-pip install .
+pip install -e .[dev]
 
-# Initialize git and set remote
-git init
-read -p "Enter your GitHub repo URL (e.g. https://github.com/rgoshen/chat2md.git): " repo_url
-git remote add origin "$repo_url"
+# Optionally set up VSCode Python path
+mkdir -p .vscode
+echo -e '{\n  "python.pythonPath": ".venv/bin/python"\n}' >.vscode/settings.json
 
-# Add files and make initial commit
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git push -u origin main
+# Optional: Initialize Git
+if [ ! -d ".git" ]; then
+  git init
+  read -p "Enter your GitHub repo URL (or leave blank to skip): " repo_url
+  if [ -n "$repo_url" ]; then
+    git remote add origin "$repo_url"
+    git add .
+    git commit -m "Initial commit"
+    git branch -M main
+    git push -u origin main
+  fi
+fi
 
-echo "✅ Setup complete. chat2md installed in virtual environment and pushed to GitHub."
-echo "💡 To activate your environment next time, run: source .venv/bin/activate"
+echo "chat2md setup complete."
+echo "To activate your environment later, run: source .venv/bin/activate"
