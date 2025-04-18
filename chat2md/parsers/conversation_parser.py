@@ -1,5 +1,3 @@
-import re
-import json
 from datetime import datetime
 from chat2md.utils.text_tools import detect_language, is_probably_code
 
