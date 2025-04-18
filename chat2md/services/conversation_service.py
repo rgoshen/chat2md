@@ -1,6 +1,6 @@
 from pathlib import Path
 from chat2md.parsers.conversation_parser import parse_conversation_to_markdown
-
+from chat2md.utils.filename_tools import sanitize_filename
 
 def process_all_conversations(conversations_json: dict, output_dir: Path, full_meta: bool = False):
     """
@@ -15,7 +15,7 @@ def process_all_conversations(conversations_json: dict, output_dir: Path, full_m
             continue
 
         # Sanitize filename: remove/replace unsafe characters
-        filename = f"{title.strip().replace(' ', '_')}.md"
+        filename = f"{sanitize_filename(title.strip())}.md"
         output_path = output_dir / filename
 
         # Convert the conversation to Markdown

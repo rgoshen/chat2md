@@ -245,6 +245,8 @@ chat2md/                          # All production code
 ├── utils/
 │   ├── __init__.py
 │   └── text_tools.py             # Language detection & code heuristics
+│   └── filename_tools.py          # Filename sanitization logic
+
 
 tests/                            # Root-level tests for modularity
 ├── __init__.py
@@ -252,11 +254,13 @@ tests/                            # Root-level tests for modularity
 ├── test_standard_output.py       # Tests basic markdown formatting
 ├── test_full_meta.py             # Tests full-meta markdown with timestamps
 ├── test_filename_sanitization.py # Tests for filename safety & formatting
-└── adapters/
-    └── test_filesystem.py        # Tests adapter layer (bad file, bad JSON)
-
-tests/fixtures/
-└── sample_conversations.json     # Sample ChatGPT export used in all tests
+├── adapters/
+│    └── test_filesystem.py        # Tests adapter layer (bad file, bad JSON)
+├── utils/
+│    ├── test_filename_tools.py     # Tests for sanitize_filename
+│    └── test_text_tools.py
+└── fixtures/
+     └── sample_conversations.json # Sample ChatGPT export used in all tests
 
 setup.py                          # Project/package config for installation
 README.md                         # Project documentation

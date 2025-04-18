@@ -1,4 +1,5 @@
 import pytest
+import json
 from pathlib import Path
 from chat2md.adapters.filesystem import load_conversations_json
 
