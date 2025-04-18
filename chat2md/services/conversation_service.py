@@ -2,6 +2,7 @@ from pathlib import Path
 from chat2md.parsers.conversation_parser import parse_conversation_to_markdown
 from chat2md.utils.filename_tools import sanitize_filename
 
+
 def process_all_conversations(conversations_json: dict, output_dir: Path, full_meta: bool = False):
     """
     Iterates through all conversations in the loaded JSON and generates a Markdown file per conversation.

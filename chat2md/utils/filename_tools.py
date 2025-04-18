@@ -1,5 +1,6 @@
 import re
 
+
 def sanitize_filename(title: str) -> str:
     """
     Sanitizes a conversation title to be safe for use as a filename.
