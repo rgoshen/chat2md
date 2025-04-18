@@ -1,24 +1,27 @@
 @echo off
-echo 🔧 Setting up chat2md local development environment...
+echo Setting up chat2md local development environment...
 
 REM Create virtual environment
 python -m venv .venv
 call .venv\Scripts\activate
 
-REM Upgrade pip and install package
+REM Upgrade pip and install with dev dependencies
 python -m pip install --upgrade pip
-pip install .
+pip install -e .[dev]
 
-REM Initialize git and set remote
-git init
-set /p repo_url="Enter your GitHub repo URL (e.g. https://github.com/rgoshen/chat2md.git): "
-git remote add origin %repo_url%
+REM Optional: initialize git repo
+if not exist ".git" (
+    git init
+    set /p repo_url=Enter your GitHub repo URL (or leave blank to skip):
+    if not "%repo_url%"=="" (
+        git remote add origin %repo_url%
+        git add .
+        git commit -m "Initial commit"
+        git branch -M main
+        git push -u origin main
+    )
+)
 
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git push -u origin main
-
-echo ✅ Setup complete. chat2md installed in virtual environment and pushed to GitHub.
-echo 💡 To activate your environment next time, run: call .venv\Scripts\activate
+echo ✅ Setup complete.
+echo 💡 To activate your environment later, run: call .venv\Scripts\activate
 pause

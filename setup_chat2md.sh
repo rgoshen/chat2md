@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🔧 Setting up chat2md (macOS/Linux)..."
+echo "Setting up chat2md (macOS/Linux)..."
 
 # Create and activate virtual environment
 python3 -m venv .venv
@@ -28,4 +28,5 @@ if [ ! -d ".git" ]; then
   fi
 fi
 
-echo "✅ chat2md is ready. Activate with: source .venv/bin/activate"
+echo "chat2md setup complete."
+echo "To activate your environment later, run: source .venv/bin/activate"

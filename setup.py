@@ -1,29 +1,35 @@
-@echo off
-setlocal
-echo 🔧 Setting up chat2md (Windows)...
+from setuptools import setup, find_packages
+from pathlib import Path
 
-REM Create virtual environment
-python -m venv .venv
+readme_path = Path(__file__).parent / "README.md"
+long_description = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
-REM Activate virtual environment
-call .venv\Scripts\activate
-
-REM Install dependencies
-python -m pip install --upgrade pip
-pip install -e .[dev]
-
-REM Optional: Initialize Git repo
-if not exist ".git" (
-    git init
-    set /p repo_url=Enter your GitHub repo URL (or leave blank to skip):
-    if not "%repo_url%"=="" (
-        git remote add origin %repo_url%
-        git add .
-        git commit -m "Initial commit"
-        git branch -M main
-        git push -u origin main
-    )
+setup(
+    name='chat2md',
+    version='0.1.0',
+    packages=find_packages(),
+    install_requires=[],
+    extras_require={
+        "dev": [
+            "pytest>=7.0",
+            "flake8>=5.0",
+            "autopep8>=2.0",
+        ],
+    },
+    entry_points={
+        'console_scripts': [
+            'chat2md=chat2md.cli:main'
+        ]
+    },
+    author='Rick Goshen',
+    description='CLI tool to convert ChatGPT-style JSON exports into Markdown with timestamps and syntax-highlighted code blocks.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://github.com/rgoshen/chat2md',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent'
+    ],
+    python_requires='>=3.7',
 )
-
-echo ✅ chat2md is ready. To activate later, run: call .venv\Scripts\activate
-endlocal
