@@ -13,6 +13,7 @@ Whether you're documenting technical conversations, turning chats into blog post
 ## ✨ Features
 
 - ✅ Converts ChatGPT JSON exports into well-structured Markdown
+- ✅ Shows progress bar during conversion
 - ✅ Adds timestamped messages with human-readable formatting
 - ✅ Supports optional YAML front matter with `--full-meta`
 - ✅ Includes message IDs and model metadata (if available)
@@ -136,9 +137,14 @@ To include full metadata (YAML frontmatter, timestamps, and message IDs):
 chat2md path/to/conversations.json -f
 ```
 
-Each conversation will be exported to its own `.md` file in the current working directory.
-File names are auto-generated from the conversation title and ID, for example:
+Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file. For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
 
+The tool shows a progress bar during conversion:
+```bash
+Converting conversations: 100%|██████████| 50/50 [00:05<00:00, 9.52 files/s]
+```
+
+File names are auto-generated from the conversation title and ID, for example:
 ```bash
 My_Conversation_Title_a1b2c3d4.md
 ```
@@ -147,7 +153,7 @@ My_Conversation_Title_a1b2c3d4.md
 
 The input must match ChatGPT’s export structure:
 
-````json
+```json
 [
   {
     "title": "Sample Conversation",
@@ -180,7 +186,7 @@ The input must match ChatGPT’s export structure:
     }
   }
 ]
-````
+```
 
 ## 🖼️ Output Example
 
