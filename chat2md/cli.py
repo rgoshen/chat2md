@@ -1,11 +1,12 @@
 # === CLI Entry Point for chat2md ===
 # This script provides a command-line interface to convert ChatGPT exports to Markdown.
 import argparse
-from .chat2md_core import parse_chat_json_to_markdown
+from pathlib import Path
+from chat2md.adapters.filesystem import load_conversations_json
+from chat2md.services.conversation_service import process_all_conversations
 
 
 def main():
-
     # Set up argument parser for command-line interface
     parser = argparse.ArgumentParser(description="Convert ChatGPT conversations.json export to Markdown.")
     parser.add_argument("input", help="Path to the conversations.json file")
@@ -20,5 +21,12 @@ def main():
     # Parse command-line arguments
     args = parser.parse_args()
 
-    # Call the main processing function with the provided arguments
-    parse_chat_json_to_markdown(args.input, full_meta=args.full_meta)
+    # Convert input path to Path object and create output directory
+    json_path = Path(args.input)
+    output_dir = json_path.parent / "markdown_output"
+    output_dir.mkdir(exist_ok=True)
+
+    # Load and process conversations
+    raw_conversations = load_conversations_json(json_path)
+    conversations = {"conversations": raw_conversations}  # Wrap in expected structure
+    process_all_conversations(conversations, output_dir, args.full_meta)
