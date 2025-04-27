@@ -15,10 +15,13 @@ def parse_conversation_to_markdown(mapping, full_meta=False):
             continue
 
         author = message.get("author", {}).get("role", "unknown")
-        content = message.get("content", {}).get("parts", [""])[0]
+        content = message.get("content", {})
+        if isinstance(content, dict):
+            content = content.get("parts", [""])[0]
+        content = str(content).strip()  # Convert to string and strip in one go
         create_time = message.get("create_time")
 
-        if not content.strip():
+        if not content:  # This will catch empty strings after stripping
             continue  # Skip blank messages
 
         # Insert date heading if this is the first message or a new day
@@ -39,8 +42,8 @@ def parse_conversation_to_markdown(mapping, full_meta=False):
         # Format as code block if message is probably code
         if is_probably_code(content):
             language = detect_language(content)
-            output.append(f"```{language}\n{content.strip()}\n```\n")
+            output.append(f"```{language}\n{content}\n```\n")
         else:
-            output.append(content.strip() + "\n")
+            output.append(content + "\n")
 
     return "\n".join(output)
