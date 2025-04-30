@@ -6,11 +6,9 @@
 [![Tests](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/python.yml)
 [![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
 
-**chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted
-Markdown transcripts.
+**chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted Markdown transcripts.
 
-Whether you're documenting technical conversations, turning chats into blog posts, or archiving for future reference —
-`chat2md` has you covered.
+Whether you're documenting technical conversations, turning chats into blog posts, or archiving for future reference — `chat2md` has you covered.
 
 ## ✨ Features
 
@@ -53,8 +51,7 @@ pip install -e .[dev]
 
 ## 🚀 Optional: Install with `pipx` (Recommended for CLI Use)
 
-[`pipx`](https://pypa.github.io/pipx/) is a tool that lets you run Python CLI apps in isolated environments — no need to
-activate virtual environments manually.
+[`pipx`](https://pypa.github.io/pipx/) is a tool that lets you run Python CLI apps in isolated environments — no need to activate virtual environments manually.
 
 ### 📦 Install `pipx` (if you haven't already)
 
@@ -104,23 +101,44 @@ chat2md path/to/chat.json
 
 ### ⚙️ Advanced CLI Options
 
-You can include additional metadata in your Markdown output using the `--full-meta` flag.
+You can include additional metadata in your Markdown output using the available flags.
 
 ### Options
 
-| Flag                | Description                                                       |
-|---------------------|-------------------------------------------------------------------|
-| `-f`, `--full-meta` | Include rich metadata (YAML frontmatter, timestamps, message IDs) |
+|
+ Flag                
+|
+ Description                                                       
+|
+|
+-------------------
+|
+-----------------------------------------------------------------
+|
+|
+`-f`
+, 
+`--full-meta`
+|
+ Include rich metadata (YAML frontmatter, timestamps, message IDs) 
+|
+|
+`-u`
+, 
+`--user-name`
+|
+ Custom name to use for 'user' messages (default: "User")          
+|
 
 ### Examples
 
 #### Basic usage
 
 ```bash
-python3 chat2md.py path/to/conversations.json
+python3 -m chat2md path/to/conversations.json
 ```
 
-Or, if you’ve installed the tool using pipx:
+Or, if you've installed the tool using pipx:
 
 ```bash
 chat2md path/to/conversations.json
@@ -130,34 +148,37 @@ chat2md path/to/conversations.json
 
 To include full metadata (YAML frontmatter, timestamps, and message IDs):
 
-| Flag                | Description                                                       |
-|---------------------|-------------------------------------------------------------------|
-| `-f`, `--full-meta` | Include rich metadata (YAML frontmatter, timestamps, message IDs) |
-
-### Example
-
 ```bash
 chat2md path/to/conversations.json -f
 ```
 
-Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file.
-For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
+To set a custom name for user messages:
+
+```bash
+chat2md path/to/conversations.json -u "Rick Goshen"
+```
+
+To use both options together:
+
+```bash
+chat2md path/to/conversations.json -f -u "Rick Goshen"
+```
+
+Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file. For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
 
 The tool shows a progress bar during conversion:
-
 ```bash
 Converting conversations: 100%|██████████| 50/50 [00:05<00:00, 9.52 files/s]
 ```
 
 File names are auto-generated from the conversation title and ID, for example:
-
 ```bash
 My_Conversation_Title_a1b2c3d4.md
 ```
 
 ## 🧠 Supported JSON Format
 
-The input must match ChatGPT’s export structure:
+The input must match ChatGPT's export structure:
 
 ```json
 [
@@ -170,26 +191,16 @@ The input must match ChatGPT’s export structure:
       "msg1": {
         "message": {
           "id": "msg1",
-          "author": {
-            "role": "user"
-          },
+          "author": { "role": "user" },
           "create_time": 1712413260.123,
-          "content": {
-            "parts": [
-              "Hello, world!"
-            ]
-          },
-          "metadata": {
-            "model_slug": "gpt-4"
-          }
+          "content": { "parts": ["Hello, world!"] },
+          "metadata": { "model_slug": "gpt-4" }
         }
       },
       "msg2": {
         "message": {
           "id": "msg2",
-          "author": {
-            "role": "assistant"
-          },
+          "author": { "role": "assistant" },
           "create_time": 1712413290.456,
           "content": {
             "parts": [
@@ -209,22 +220,56 @@ The input must match ChatGPT’s export structure:
 ### Without full meta
 
 ````markdown
+**User**:
+def add(a, b): return a + b
+
+**ChatGPT**:
+
+```python
+def add(a, b):
+    return a + b
+```
+````
+
+### Example Output with `--full-meta`
+
+````markdown
+---
+title: 'Test Chat'
+conversation_id: 'abc123'
+created: '2024-12-01 12:34 UTC'
+updated: '2024-12-01 14:21 UTC'
+model: 'gpt-4'
 ---
 
 ### Day Start: April 06, 2025
 
-**Rick Goshen** [15:01:00]:
+**User** [15:01:00]:
 def add(a, b): return a + b
 
 **ChatGPT** [15:01:30]:
 
 ```python
 def add(a, b):
-return a + b
+    return a + b
 ```
 ````
 
-### Example Output with `--full-meta`
+### Example Output with `--user-name`
+
+````markdown
+**Rick Goshen**:
+def add(a, b): return a + b
+
+**ChatGPT**:
+
+```python
+def add(a, b):
+    return a + b
+```
+````
+
+### Example Output with both `--full-meta` and `--user-name`
 
 ````markdown
 ---
@@ -251,14 +296,13 @@ def add(a, b):
 ## 📂 Project Structure
 
 ```bash
-
-chat2md/                          # All production code
+chat2md/                          # Root package
 ├── __init__.py
-├── cli/
+├── cli/                          # CLI module
 │   ├── __init__.py
-│   ├── main.py         # Contains the main() function - entry point
-│   ├── parser.py       # Contains argument parser setup
-│   └── helpers.py      # Contains helper functions for CLI operations
+│   ├── main.py                   # CLI entry point
+│   ├── parser.py                 # Argument parser setup
+│   └── helpers.py                # CLI helper functions
 ├── adapters/
 │   ├── __init__.py
 │   └── filesystem.py             # File I/O logic for reading JSON input
@@ -270,8 +314,10 @@ chat2md/                          # All production code
 │   └── conversation_parser.py    # Parses a single conversation into Markdown
 ├── utils/
 │   ├── __init__.py
-│   └── text_tools.py             # Language detection & code heuristics
-│   └── filename_tools.py          # Filename sanitization logic
+│   ├── text_tools.py             # Language detection & code heuristics
+│   ├── filename_tools.py         # Filename sanitization logic
+│   ├── formatting_tools.py       # Date/time formatting utilities
+│   └── metadata_tools.py         # Metadata extraction utilities
 
 
 tests/                            # Root-level tests for modularity
@@ -290,7 +336,6 @@ tests/                            # Root-level tests for modularity
 
 setup.py                          # Project/package config for installation
 README.md                         # Project documentation
-
 ```
 
 ## 🧪 Development
