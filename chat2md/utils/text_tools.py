@@ -2,6 +2,7 @@
 
 import re
 
+
 # Detect the programming or content language of a given text snippet.
 # This is used for properly formatting code blocks in Markdown.
 
@@ -20,6 +21,7 @@ def detect_language(text):
     # Return the first matching language or default to 'text'
     return next((lang for lang, check in checks if check(text)), "text")
 
+
 # Heuristic to determine if the given content is likely source code.
 # Helps decide whether to wrap the content in a Markdown code block.
 
@@ -30,8 +32,25 @@ def is_probably_code(text):
 
     # Check for common code indicators (newlines, braces, semicolons, etc.)
     return (
-        bool(re.search(r'[\n;{}()]', text))
-        or "def " in text
-        or "class " in text
-        or "import " in text
+            bool(re.search(r'[\n;{}()]', text))
+            or "def " in text
+            or "class " in text
+            or "import " in text
     )
+
+
+def format_message_content(content):
+    """
+    Format message content, with special handling for code blocks
+
+    Args:
+        content (str): The message content
+
+    Returns:
+        str: Formatted content as Markdown
+    """
+    if is_probably_code(content):
+        language = detect_language(content)
+        return f"```{language}\n{content}\n```\n"
+    else:
+        return content + "\n"
