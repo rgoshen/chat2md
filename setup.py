@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from pathlib import Path
+
+from setuptools import setup, find_packages
 
 readme_path = Path(__file__).parent / "README.md"
 long_description = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
@@ -8,8 +9,14 @@ setup(
     name='chat2md',
     version='0.1.0',
     packages=find_packages(),
+    entry_points={
+        "console_scripts": [
+            "chat2md=chat2md.cli.main:main",  # Updated entry point
+        ],
+    },
     install_requires=[
         'tqdm>=4.65.0',
+        'pyyaml>=6.0',
     ],
     extras_require={
         "dev": [
@@ -17,11 +24,6 @@ setup(
             "flake8>=5.0",
             "autopep8>=2.0",
         ],
-    },
-    entry_points={
-        'console_scripts': [
-            'chat2md=chat2md.cli:main'
-        ]
     },
     author='Rick Goshen',
     description='CLI tool to convert ChatGPT-style JSON exports into Markdown with timestamps and syntax-highlighted code blocks.',
