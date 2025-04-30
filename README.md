@@ -6,9 +6,11 @@
 [![Tests](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/python.yml)
 [![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
 
-**chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted Markdown transcripts.
+**chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted
+Markdown transcripts.
 
-Whether you're documenting technical conversations, turning chats into blog posts, or archiving for future reference — `chat2md` has you covered.
+Whether you're documenting technical conversations, turning chats into blog posts, or archiving for future reference —
+`chat2md` has you covered.
 
 ## ✨ Features
 
@@ -51,7 +53,8 @@ pip install -e .[dev]
 
 ## 🚀 Optional: Install with `pipx` (Recommended for CLI Use)
 
-[`pipx`](https://pypa.github.io/pipx/) is a tool that lets you run Python CLI apps in isolated environments — no need to activate virtual environments manually.
+[`pipx`](https://pypa.github.io/pipx/) is a tool that lets you run Python CLI apps in isolated environments — no need to
+activate virtual environments manually.
 
 ### 📦 Install `pipx` (if you haven't already)
 
@@ -106,9 +109,9 @@ You can include additional metadata in your Markdown output using the available 
 ### Options
 
 |
- Flag                
+Flag                
 |
- Description                                                       
+Description                                                       
 |
 |
 -------------------
@@ -117,17 +120,17 @@ You can include additional metadata in your Markdown output using the available 
 |
 |
 `-f`
-, 
+,
 `--full-meta`
 |
- Include rich metadata (YAML frontmatter, timestamps, message IDs) 
+Include rich metadata (YAML frontmatter, timestamps, message IDs)
 |
 |
 `-u`
-, 
+,
 `--user-name`
 |
- Custom name to use for 'user' messages (default: "User")          
+Custom name to use for 'user' messages (default: "User")          
 |
 
 ### Examples
@@ -164,14 +167,17 @@ To use both options together:
 chat2md path/to/conversations.json -f -u "Rick Goshen"
 ```
 
-Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file. For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
+Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file.
+For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
 
 The tool shows a progress bar during conversion:
+
 ```bash
 Converting conversations: 100%|██████████| 50/50 [00:05<00:00, 9.52 files/s]
 ```
 
 File names are auto-generated from the conversation title and ID, for example:
+
 ```bash
 My_Conversation_Title_a1b2c3d4.md
 ```
@@ -191,16 +197,26 @@ The input must match ChatGPT's export structure:
       "msg1": {
         "message": {
           "id": "msg1",
-          "author": { "role": "user" },
+          "author": {
+            "role": "user"
+          },
           "create_time": 1712413260.123,
-          "content": { "parts": ["Hello, world!"] },
-          "metadata": { "model_slug": "gpt-4" }
+          "content": {
+            "parts": [
+              "Hello, world!"
+            ]
+          },
+          "metadata": {
+            "model_slug": "gpt-4"
+          }
         }
       },
       "msg2": {
         "message": {
           "id": "msg2",
-          "author": { "role": "assistant" },
+          "author": {
+            "role": "assistant"
+          },
           "create_time": 1712413290.456,
           "content": {
             "parts": [
