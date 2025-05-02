@@ -21,12 +21,39 @@ def process_all_conversations(conversations_json: dict, output_dir: Path, full_m
                 pbar.update(1)
                 continue
 
+            # Prepare meta for frontmatter
+            conversation_meta = None
+            if full_meta:
+                # Extract model from first message that has it
+                model = ""
+                if mapping:
+                    for msg in mapping.values():
+                        if not isinstance(msg, dict):
+                            continue
+                        message = msg.get("message")
+                        if not isinstance(message, dict):
+                            continue
+                        metadata = message.get("metadata")
+                        if not isinstance(metadata, dict):
+                            continue
+                        model = metadata.get("model_slug", "")
+                        if model:
+                            break
+
+                conversation_meta = {
+                    "title": title,
+                    "id": convo.get("id", ""),
+                    "create_time": convo.get("create_time", ""),
+                    "update_time": convo.get("update_time", ""),
+                    "model": model
+                }
+
             # Sanitize filename: remove/replace unsafe characters
             filename = f"{sanitize_filename(title.strip())}.md"
             output_path = output_dir / filename
 
             # Convert the conversation to Markdown
-            markdown = parse_conversation_to_markdown(mapping, full_meta=full_meta)
+            markdown = parse_conversation_to_markdown(mapping, full_meta=full_meta, conversation_meta=conversation_meta)
 
             # Write the result to disk (silently)
             with open(output_path, "w", encoding="utf-8") as f:
