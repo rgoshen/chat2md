@@ -7,29 +7,26 @@ Whether it's bug reports, new features, documentation, or just ideas — we welc
 ## 🧰 Getting Started
 
 1. Fork the repository and clone your fork.
-2. Create and activate a virtual environment:
+2. Run the setup script to create your development environment:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# On macOS/Linux
+./setup_chat2md.sh
+
+# On Windows
+setup_chat2md.bat
 ```
 
-3. Install the project with development dependencies:
-
-```bash
-pip install -e .[dev]
-```
-
-4. Create a new branch for your feature or bugfix:
+3. Create a new branch for your feature or bugfix:
 
 ```bash
 git checkout -b feat/your-feature-name
 ```
 
-5. Make your changes, and write/update tests if applicable.
-6. Run the linter and formatter to ensure style consistency.
-7. Run all tests and verify they pass.
-8. Commit and push your changes:
+4. Make your changes, and write/update tests if applicable.
+5. Run the linter and formatter to ensure style consistency.
+6. Run all tests and verify they pass.
+7. Commit and push your changes:
 
 ```bash
 git add .
@@ -37,7 +34,7 @@ git commit -m "feat: describe your change"
 git push origin feat/your-feature-name
 ```
 
-9. Submit a pull request with a clear description of your change.
+8. Submit a pull request with a clear description of your change.
 
 ## 🧪 Code Style
 

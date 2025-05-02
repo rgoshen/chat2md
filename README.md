@@ -24,8 +24,13 @@ Whether you're documenting technical conversations, turning chats into blog post
 - ✅ Unit-tested using `pytest`, including standard and full-meta modes
 - ✅ Easy to install locally or via `pipx`
 - ✅ Extensible structure for future output formats (HTML, PDF, etc.)
+- ✅ Support Python 3.13+
 
 ## 📦 Installation
+
+### Requirements
+
+- Python 3.13.3 or higher
 
 ### 1. Clone repository
 
@@ -36,17 +41,14 @@ cd chat2md
 
 > **NOTE**:It is recommended to use a virtual environment for installation:
 
-### 2. Create and activate a virtual environment
+### 2. Run the setup script
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+# On macOS/Linux
+./setup_chat2md.sh
 
-### 3. Install all dependencies
-
-```bash
-pip install -e .[dev]
+# On Windows
+setup_chat2md.bat
 ```
 
 ## 🚀 Optional: Install with `pipx` (Recommended for CLI Use)
@@ -140,11 +142,13 @@ chat2md path/to/conversations.json -f
 Each conversation will be exported to its own `.md` file in a `markdown_output` directory next to your input JSON file. For example, if your input file is `/path/to/conversations.json`, the output will be in `/path/to/markdown_output/`.
 
 The tool shows a progress bar during conversion:
+
 ```bash
 Converting conversations: 100%|██████████| 50/50 [00:05<00:00, 9.52 files/s]
 ```
 
 File names are auto-generated from the conversation title and ID, for example:
+
 ```bash
 My_Conversation_Title_a1b2c3d4.md
 ```
@@ -153,7 +157,7 @@ My_Conversation_Title_a1b2c3d4.md
 
 The input must match ChatGPT’s export structure:
 
-```json
+````json
 [
   {
     "title": "Sample Conversation",
@@ -186,7 +190,7 @@ The input must match ChatGPT’s export structure:
     }
   }
 ]
-```
+````
 
 ## 🖼️ Output Example
 
@@ -274,6 +278,8 @@ README.md                         # Project documentation
 ```
 
 ## 🧪 Development
+
+chat2md is developed and tested with Python 3.13.3. Earlier versions may work but are not officially supported.
 
 ### Run all tests
 
