@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4e2ae4a-6ad4-4576-bb71-71d49b6ac701" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Python Unit Test" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;rgoshen&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rgoshen/chat2md.git&quot;,
+    &quot;accountId&quot;: &quot;3082152a-9e94-439c-b652-9beba9b6df68&quot;
+  }
+}</component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2wSREjGrGSO68h9bxf6CtwjdRmU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests in -m pytest -v.executor": "Run",
+    "Python tests.Python tests in python3 -m pytest -v.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHELLCHECK.PATH": "/Users/richardgoshen/Library/Application Support/JetBrains/PyCharm2025.1/plugins/Shell Script/shellcheck",
+    "git-widget-placeholder": "#7 on bug/fix-full-meta",
+    "last_opened_file_path": "/Users/richardgoshen/workspaces/projects/chat2md",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ]
+  }
+}]]></component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Python tests in python3 -m pytest -v" type="tests" factoryName="Autodetect" nameIsGenerated="true">
+      <module name="chat2md" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.9 (chat2md)" />
+      <option name="WORKING_DIRECTORY" value=".venv/bin/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;python3 -m pytest -v&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-PY-251.23774.444" />
+        <option value="bundled-python-sdk-890ed5b35930-d9c5bdb153f4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.23774.444" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4e2ae4a-6ad4-4576-bb71-71d49b6ac701" name="Changes" comment="" />
+      <created>1746032236616</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746032236616</updated>
+      <workItem from="1746033156246" duration="1797000" />
+      <workItem from="1746034963141" duration="5597000" />
+      <workItem from="1746058517286" duration="3815000" />
+    </task>
+    <task id="LOCAL-00001" summary="BUG: updated conversation_parser to handle creating metadata and author name&#10;- text_tools: add format message content function&#10;- add new formatting tools file with format timestamp&#10;- add new metadata tools">
+      <option name="closed" value="true" />
+      <created>1746034564924</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034564924</updated>
+    </task>
+    <task id="LOCAL-00002" summary="BUG: update to program entry point&#10;- create new cli directory&#10;- remove cli.py&#10;- add main.py&#10;- add helpers.py&#10;- add parsers.py">
+      <option name="closed" value="true" />
+      <created>1746035385409</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746035385409</updated>
+    </task>
+    <task id="LOCAL-00003" summary="BUG: update conversation_service.py&#10;- add a --user-name option to customize the user's display name&#10;- refactored for better maintainability">
+      <option name="closed" value="true" />
+      <created>1746035718413</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746035718413</updated>
+    </task>
+    <task id="LOCAL-00004" summary="BUG: update README">
+      <option name="closed" value="true" />
+      <created>1746036221224</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746036221224</updated>
+    </task>
+    <task id="LOCAL-00005" summary="BUG: update README">
+      <option name="closed" value="true" />
+      <created>1746036236201</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746036236201</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="BUG: updated conversation_parser to handle creating metadata and author name&#10;- text_tools: add format message content function&#10;- add new formatting tools file with format timestamp&#10;- add new metadata tools" />
+    <MESSAGE value="BUG: update to program entry point&#10;- create new cli directory&#10;- remove cli.py&#10;- add main.py&#10;- add helpers.py&#10;- add parsers.py" />
+    <MESSAGE value="BUG: update conversation_service.py&#10;- add a --user-name option to customize the user's display name&#10;- refactored for better maintainability" />
+    <MESSAGE value="BUG: update README" />
+    <option name="LAST_COMMIT_MESSAGE" value="BUG: update README" />
+  </component>
+</project>
