@@ -1,5 +1,4 @@
 autopep8==2.3.2
-chat2md @ file:///Users/richardgoshen/workspaces/projects/chat2md
 flake8==7.2.0
 iniconfig==2.1.0
 mccabe==0.7.0
