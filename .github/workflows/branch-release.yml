@@ -1,0 +1,125 @@
+name: Branch Release
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'feat/**'
+      - 'fix/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'docs/**'
+      - 'documentation/**'
+
+jobs:
+  branch-release:
+    name: Branch Pre-Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+          
+      - name: Determine branch type and create PR
+        id: branch-info
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          SAFE_BRANCH_NAME=$(echo $BRANCH_NAME | sed 's/[^a-zA-Z0-9]/-/g')
+          
+          # Determine branch type for commit message prefix
+          if [[ "$BRANCH_NAME" == feat/* || "$BRANCH_NAME" == feature/* ]]; then
+            echo "branch_type=feat" >> $GITHUB_OUTPUT
+            echo "commit_prefix=feat(release)" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH_NAME" == fix/* || "$BRANCH_NAME" == bugfix/* || "$BRANCH_NAME" == hotfix/* ]]; then
+            echo "branch_type=fix" >> $GITHUB_OUTPUT
+            echo "commit_prefix=fix(release)" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH_NAME" == docs/* || "$BRANCH_NAME" == documentation/* ]]; then
+            echo "branch_type=docs" >> $GITHUB_OUTPUT
+            echo "commit_prefix=docs(release)" >> $GITHUB_OUTPUT
+          else
+            echo "branch_type=chore" >> $GITHUB_OUTPUT
+            echo "commit_prefix=chore(release)" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "safe_branch_name=$SAFE_BRANCH_NAME" >> $GITHUB_OUTPUT
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+      
+      - name: Update version for pre-release
+        run: |
+          # Get the current version from __init__.py or create it if it doesn't exist
+          if [ -f "chat2md/__init__.py" ]; then
+            CURRENT_VERSION=$(grep -oP "__version__ = ['\"]?\K[^'\"]*" chat2md/__init__.py || echo "0.1.0")
+          else
+            mkdir -p chat2md
+            echo "__version__ = \"0.1.0\"" > chat2md/__init__.py
+            CURRENT_VERSION="0.1.0"
+          fi
+          
+          # Generate new pre-release version
+          if [[ "$CURRENT_VERSION" == *"-"* ]]; then
+            # Already has a pre-release tag, strip it
+            BASE_VERSION=$(echo $CURRENT_VERSION | cut -d'-' -f1)
+          else
+            BASE_VERSION=$CURRENT_VERSION
+          fi
+          
+          NEW_VERSION="${BASE_VERSION}-${{ steps.branch-info.outputs.safe_branch_name }}.$(date +%Y%m%d%H%M%S)"
+          
+          # Update version in __init__.py
+          if [ -f "chat2md/__init__.py" ]; then
+            sed -i "s/__version__ = ['\"].*['\"]/__version__ = \"${NEW_VERSION}\"/" chat2md/__init__.py
+          else
+            echo "__version__ = \"${NEW_VERSION}\"" > chat2md/__init__.py
+          fi
+          
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_ENV
+      
+      - name: Update CHANGELOG
+        run: |
+          # Get the date in YYYY-MM-DD format
+          TODAY=$(date +"%Y-%m-%d")
+          
+          # Create CHANGELOG.md if it doesn't exist
+          if [ ! -f "CHANGELOG.md" ]; then
+            echo "# Changelog" > CHANGELOG.md
+          fi
+          
+          # Prepend new entry to CHANGELOG.md
+          TEMP_CHANGELOG=$(mktemp)
+          cat > $TEMP_CHANGELOG << EOF
+          # Changelog
+
+          ## [${NEW_VERSION}] - ${TODAY}
+
+          ### ${{ steps.branch-info.outputs.branch_type }}
+          
+          - Pre-release from branch ${{ github.ref_name }}
+          
+          $(cat CHANGELOG.md | grep -v '^# Changelog' || echo '')
+          EOF
+          
+          mv $TEMP_CHANGELOG CHANGELOG.md
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add chat2md/__init__.py CHANGELOG.md
+          git commit -m "${{ steps.branch-info.outputs.commit_prefix }}: ${{ env.new_version }} [skip ci]"
+          git tag v${{ env.new_version }}
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          tags: true
