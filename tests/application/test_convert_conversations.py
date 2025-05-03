@@ -116,5 +116,5 @@ def test_sanitize_filename(use_case):
     """Test filename sanitization."""
     unsafe_filename = 'Test: File/with\\unsafe*chars?'
     safe_filename = use_case._sanitize_filename(unsafe_filename)
-    assert safe_filename == 'Test_Filewith_unsafe_chars'
+    assert safe_filename == 'Test_File_with_unsafe_chars'
     assert all(c not in safe_filename for c in r'\\/*?:"<>|!')

@@ -86,11 +86,18 @@ class ConvertConversationsUseCase:
 
             return output_files
 
+        except ConversationError:
+            # Don't wrap ConversationError in RepositoryError
+            raise
         except Exception as e:
             self.logger.error(f"Error in conversion process: {str(e)}")
             raise RepositoryError(f"Failed to process conversations: {str(e)}") from e
 
     def _sanitize_filename(self, filename: str) -> str:
         """Convert a string to a safe filename."""
-        # Replace spaces with underscores and remove unsafe characters
-        return re.sub(r'[\\/*?:"<>|!]', '', filename).replace(' ', '_')
+        # First replace unsafe characters with spaces to preserve word boundaries
+        safe_name = re.sub(r'[\\/*?:"<>|!]', ' ', filename)
+        # Replace spaces and multiple underscores with a single underscore
+        safe_name = re.sub(r'[\s_]+', '_', safe_name)
+        # Remove leading/trailing underscores
+        return safe_name.strip('_')
