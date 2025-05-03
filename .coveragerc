@@ -1,0 +1,50 @@
+[run]
+branch = True
+source = chat2md
+omit =
+    # Omit test files
+    tests/*
+    # Omit virtual environment
+    .venv/*
+    # Omit setup files
+    setup.py
+    # Omit version file
+    chat2md/version.py
+
+[paths]
+source =
+    chat2md/
+    */site-packages/chat2md/
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+    pass
+    raise ImportError
+    except ImportError:
+
+ignore_errors = True
+fail_under = 90
+show_missing = True
+skip_covered = False
+
+[html]
+directory = coverage_html
+title = chat2md Coverage Report
+
+[xml]
+output = coverage.xml 
