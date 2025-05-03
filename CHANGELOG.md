@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.2.2](https://github.com/rgoshen/chat2md/compare/v0.2.1...v0.2.2) (2025-05-03)
+
+
+### ✨ Features
+
+* implement conversation conversion use case and enhance CLI functionality ([11b7fd8](https://github.com/rgoshen/chat2md/commit/11b7fd8856389bc606120388aaa9bfbab42299d3))
+
+
+### 🐛 Bug Fixes
+
+* improve filename sanitization and enhance logging setup ([7715532](https://github.com/rgoshen/chat2md/commit/77155329a049766496a0afa16407a3707ae9bb1f))
+
+
+### 🧱 Maintenance
+
+* add Codecov configuration and update contributing guidelines ([03ed61a](https://github.com/rgoshen/chat2md/commit/03ed61a02fc8e83a8679eb281b275d3382c9b064))
+* add coverage configuration and CI workflow ([c0da1d9](https://github.com/rgoshen/chat2md/commit/c0da1d994df90fdc35ac4454c5aeeb02f31515ee))
+* enhance logging and improve Markdown formatting ([375a71f](https://github.com/rgoshen/chat2md/commit/375a71fd809923b58ba70bf7d84076a2a3398e55))
+* improve error handling and clean up whitespace in conversion process ([659942b](https://github.com/rgoshen/chat2md/commit/659942b2f695069b40d0ccc2766f4112ddd365dd))
+* remove unneeded python-setup, changed from standard-version to release-please ([46eb88d](https://github.com/rgoshen/chat2md/commit/46eb88d0440dd79bcf5f9cb4a69a799c038e5da6))
+* reorganize project structure and update README ([502ad94](https://github.com/rgoshen/chat2md/commit/502ad941cb746968647d49ac9f90720d496a7785))
+* update testing documentation and configuration ([402d4b1](https://github.com/rgoshen/chat2md/commit/402d4b1a77ac4b266545ab7f06c511e498df53df))
+
 ## [0.2.1](https://github.com/rgoshen/chat2md/compare/v0.2.0...v0.2.1) (2025-05-03)
 
 
