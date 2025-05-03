@@ -9,6 +9,15 @@ def test_full_meta_output(tmp_path, sample_conversation_dict):
     assert md_files
 
     content = md_files[0].read_text(encoding="utf-8")
+    # Verify YAML frontmatter is present and includes the expected metadata keys
+    # The markdown file should begin with '---', followed by the frontmatter and a closing '---'
+    assert content.startswith("---"), "Markdown file does not start with YAML frontmatter"
+    parts = content.split("---")
+    assert len(parts) >= 3, "YAML frontmatter not properly delimited by '---'"
+    yaml_frontmatter = parts[1]
+    for key in ("title", "conversation_id", "created", "updated", "model"):
+        assert key in yaml_frontmatter, f"Missing required key '{key}' in YAML frontmatter"
+
     # Check date headers
     assert any(line.startswith("## ") for line in content.splitlines())
     # Check timestamps
