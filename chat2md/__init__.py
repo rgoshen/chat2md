@@ -1,1 +1,3 @@
-__version__ = "0.2.0-bugfix-fix-full-meta-data.20250503012647"
+from .version import __version__
+
+__all__ = ['__version__']
