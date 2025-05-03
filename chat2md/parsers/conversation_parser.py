@@ -50,10 +50,10 @@ def parse_conversation_to_markdown(mapping, full_meta=False, conversation_meta=N
                 last_date = current_date
 
             # Include timestamp, author, and message ID
-            output.append(f"**[{current_time}] {author.capitalize()}** (id: `{msg_id}`):\n")
+            output.append(f"**[{current_time}] {author.capitalize()}:** (id: `{msg_id}`):\n")
         else:
             # Only include author when not in full meta mode
-            output.append(f"**{author.capitalize()}**:\n")
+            output.append(f"**{author.capitalize()}:**\n")
 
         # Format as code block if message is probably code
         if is_probably_code(content):
