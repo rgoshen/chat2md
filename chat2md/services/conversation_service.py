@@ -53,7 +53,8 @@ def process_all_conversations(conversations_json: dict, output_dir: Path, full_m
             output_path = output_dir / filename
 
             # Convert the conversation to Markdown
-            markdown = parse_conversation_to_markdown(mapping, full_meta=full_meta, conversation_meta=conversation_meta)
+            markdown = parse_conversation_to_markdown(
+                mapping, full_meta=full_meta, conversation_meta=conversation_meta)
 
             # Write the result to disk (silently)
             with open(output_path, "w", encoding="utf-8") as f:

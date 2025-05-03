@@ -1,5 +1,6 @@
 from chat2md.services.conversation_service import process_all_conversations
 
+
 def test_full_meta_output(tmp_path, sample_conversation_dict):
     # Run full-meta markdown export using in-memory fixture
     process_all_conversations(sample_conversation_dict, output_dir=tmp_path, full_meta=True)
@@ -8,5 +9,9 @@ def test_full_meta_output(tmp_path, sample_conversation_dict):
     assert md_files
 
     content = md_files[0].read_text(encoding="utf-8")
+    # Check date headers
     assert any(line.startswith("## ") for line in content.splitlines())
+    # Check timestamps
     assert any("[" in line and "]" in line for line in content.splitlines())
+    # Check that IDs are present in full meta mode
+    assert "(id: `" in content
