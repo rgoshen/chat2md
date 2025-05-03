@@ -1,32 +1,92 @@
 # === CLI Entry Point for chat2md ===
 # This script provides a command-line interface to convert ChatGPT exports to Markdown.
 import argparse
+import logging
+import sys
 from pathlib import Path
-from chat2md.adapters.filesystem import load_conversations_json
-from chat2md.services.conversation_service import process_all_conversations
+
+from chat2md.application.use_cases.convert_conversations import ConvertConversationsUseCase
+from chat2md.domain.exceptions import Chat2MDError
+from chat2md.infrastructure.config import Config
+from chat2md.infrastructure.formatters.markdown_formatter import DefaultMarkdownFormatter
+from chat2md.infrastructure.logging import setup_logging
+from chat2md.infrastructure.persistence.json_file_repository import JsonFileRepository
 
 
 def main():
-    # Set up argument parser for command-line interface
-    parser = argparse.ArgumentParser(description="Convert ChatGPT conversations.json export to Markdown.")
-    parser.add_argument("input", help="Path to the conversations.json file")
+    """CLI entry point for chat2md."""
+    # Set up argument parser
+    parser = argparse.ArgumentParser(
+        description="Convert ChatGPT conversations.json export to Markdown."
+    )
     parser.add_argument(
-        # Optional flag to include full metadata (YAML frontmatter, timestamps, message IDs)
+        "input",
+        help="Path to the conversations.json file"
+    )
+    parser.add_argument(
         "-f",
-        # Optional flag to include full metadata (YAML frontmatter, timestamps, message IDs)
         "--full-meta",
         action="store_true",
-        help="Include full metadata (YAML frontmatter, timestamps, message IDs)")
+        help="Include full metadata (YAML frontmatter, timestamps, message IDs)"
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        help="Path to configuration file"
+    )
+    parser.add_argument(
+        "--log-file",
+        type=Path,
+        help="Path to log file"
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose logging"
+    )
 
-    # Parse command-line arguments
+    # Parse arguments
     args = parser.parse_args()
 
-    # Convert input path to Path object and create output directory
-    json_path = Path(args.input)
-    output_dir = json_path.parent / "markdown_output"
-    output_dir.mkdir(exist_ok=True)
+    # Load configuration
+    config = Config.load_from_file(args.config)
+    if args.verbose:
+        config.log_level = "DEBUG"
 
-    # Load and process conversations
-    raw_conversations = load_conversations_json(json_path)
-    conversations = {"conversations": raw_conversations}  # Wrap in expected structure
-    process_all_conversations(conversations, output_dir, args.full_meta)
+    # Setup logging
+    setup_logging(config, args.log_file)
+    logger = logging.getLogger("chat2md")
+
+    try:
+        # Set up paths
+        input_path = Path(args.input)
+        output_dir = input_path.parent / config.default_output_dir
+
+        # Initialize components
+        repository = JsonFileRepository()
+        markdown_converter = DefaultMarkdownFormatter()
+        use_case = ConvertConversationsUseCase(repository, markdown_converter, config)
+
+        # Execute conversion
+        logger.info("Starting conversation conversion")
+        output_files = use_case.execute(
+            source_path=input_path,
+            output_dir=output_dir,
+            include_metadata=args.full_meta
+        )
+        logger.info(f"Successfully converted {len(output_files)} conversations")
+        logger.info(f"Output directory: {output_dir}")
+
+    except Chat2MDError as e:
+        logger.error(str(e))
+        return 1
+    except Exception as e:
+        logger.exception("Unexpected error occurred")
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
