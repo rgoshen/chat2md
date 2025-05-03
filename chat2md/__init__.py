@@ -1,1 +1,1 @@
-__version__ = "0.2.0"
+__version__ = "0.2.0-bugfix-fix-full-meta-data.20250503010355"

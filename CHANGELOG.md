@@ -1,5 +1,12 @@
 # Changelog
 
+## [] - 2025-05-03
+
+### fix
+
+- Pre-release from branch bugfix/fix-full-meta-data
+
+
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ## 0.2.0 (2025-04-27)
