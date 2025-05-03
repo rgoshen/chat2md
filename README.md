@@ -1,10 +1,10 @@
 # 🗨️ chat2md
 
-[![Build](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions)
+[![Tests](https://github.com/rgoshen/chat2md/actions/workflows/test.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/rgoshen/chat2md?sort=semver)](https://github.com/rgoshen/chat2md/releases)
-[![Tests](https://github.com/rgoshen/chat2md/actions/workflows/python.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/python.yml)
-[![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
+[![Python Versions](https://img.shields.io/pypi/pyversions/chat2md)](https://pypi.org/project/chat2md/)
 
 **chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted Markdown transcripts.
 
@@ -119,7 +119,7 @@ You can include additional metadata in your Markdown output using the `--full-me
 python3 chat2md.py path/to/conversations.json
 ```
 
-Or, if you’ve installed the tool using pipx:
+Or, if you've installed the tool using pipx:
 
 ```bash
 chat2md path/to/conversations.json
@@ -155,9 +155,9 @@ My_Conversation_Title_a1b2c3d4.md
 
 ## 🧠 Supported JSON Format
 
-The input must match ChatGPT’s export structure:
+The input must match ChatGPT's export structure:
 
-````json
+```json
 [
   {
     "title": "Sample Conversation",
@@ -190,7 +190,7 @@ The input must match ChatGPT’s export structure:
     }
   }
 ]
-````
+```
 
 ## 🖼️ Output Example
 
@@ -210,6 +210,7 @@ def add(a, b): return a + b
 def add(a, b):
     return a + b
 ```
+
 ````
 
 ### Example Output with `--full-meta`
@@ -239,53 +240,112 @@ def add(a, b):
 ## 📂 Project Structure
 
 ```bash
-
-chat2md/                          # All production code
+chat2md/                          # Root package
 ├── __init__.py
-├── cli.py                        # CLI entry point (argparse)
-├── adapters/
+├── cli.py                        # CLI entry point
+├── domain/                       # Domain layer
 │   ├── __init__.py
-│   └── filesystem.py             # File I/O logic for reading JSON input
-├── services/
+│   ├── entities/                 # Core business objects
+│   │   ├── __init__.py
+│   │   └── conversation.py       # Conversation and Message entities
+│   ├── exceptions.py            # Custom domain exceptions
+│   └── repositories/            # Repository interfaces
+│       ├── __init__.py
+│       └── conversation_repository.py
+├── application/                 # Application layer
 │   ├── __init__.py
-│   └── conversation_service.py   # Orchestrates parsing all conversations
-├── parsers/
-│   ├── __init__.py
-│   └── conversation_parser.py    # Parses a single conversation into Markdown
-├── utils/
-│   ├── __init__.py
-│   └── text_tools.py             # Language detection & code heuristics
-│   └── filename_tools.py          # Filename sanitization logic
+│   ├── interfaces/             # Application interfaces
+│   │   ├── __init__.py
+│   │   └── markdown_converter.py
+│   └── use_cases/             # Business use cases
+│       ├── __init__.py
+│       └── convert_conversations.py
+└── infrastructure/             # Infrastructure layer
+    ├── __init__.py
+    ├── config.py              # Configuration management
+    ├── logging.py            # Logging setup
+    ├── formatters/           # Output formatters
+    │   ├── __init__.py
+    │   └── markdown_formatter.py
+    └── persistence/          # Storage implementations
+        ├── __init__.py
+        └── json_file_repository.py
 
-
-tests/                            # Root-level tests for modularity
+tests/                        # Test suite
 ├── __init__.py
-├── conftest.py                   # Shared pytest fixtures (sample JSON loader)
-├── test_standard_output.py       # Tests basic markdown formatting
-├── test_full_meta.py             # Tests full-meta markdown with timestamps
-├── test_filename_sanitization.py # Tests for filename safety & formatting
-├── adapters/
-│    └── test_filesystem.py        # Tests adapter layer (bad file, bad JSON)
-├── utils/
-│    ├── test_filename_tools.py     # Tests for sanitize_filename
-│    └── test_text_tools.py
-└── fixtures/
-     └── sample_conversations.json # Sample ChatGPT export used in all tests
+├── conftest.py              # Shared pytest fixtures
+├── domain/                  # Domain layer tests
+│   ├── __init__.py
+│   └── test_exceptions.py
+├── application/            # Application layer tests
+│   ├── __init__.py
+│   └── test_convert_conversations.py
+└── infrastructure/        # Infrastructure layer tests
+    ├── __init__.py
+    ├── test_config.py
+    └── test_logging.py
 
-setup.py                          # Project/package config for installation
-README.md                         # Project documentation
-
+# Configuration files
+├── .coveragerc             # Coverage configuration
+├── codecov.yml            # Codecov settings
+├── pytest.ini            # Pytest configuration
+├── requirements.txt      # Project dependencies
+└── setup.py             # Package setup
 ```
+
+The project follows Clean Architecture principles:
+
+- **Domain Layer**: Core business logic and entities
+- **Application Layer**: Use cases and interfaces
+- **Infrastructure Layer**: External concerns (I/O, formatting)
+
+This separation ensures:
+
+- Independence of business logic
+- Easy testing and mocking
+- Flexible implementation swapping
+- Clear dependency direction (inward)
 
 ## 🧪 Development
 
 chat2md is developed and tested with Python 3.13.3. Earlier versions may work but are not officially supported.
 
-### Run all tests
+### Testing
+
+Run all tests:
 
 ```bash
 pytest
 ```
+
+Run tests with coverage:
+
+```bash
+# Terminal report
+pytest --cov=chat2md --cov-report=term-missing
+
+# HTML report
+pytest --cov=chat2md --cov-report=html
+
+# XML report (for CI)
+pytest --cov=chat2md --cov-report=xml
+```
+
+Coverage reports will be generated in:
+
+- Terminal: Immediate output showing missing lines
+- HTML: `coverage_html/` directory (open `index.html` in browser)
+- XML: `coverage.xml` file (used by Codecov)
+
+Current coverage requirements:
+
+- Minimum coverage: 90%
+- Branch coverage: Enabled
+- Excluded from coverage:
+  - `__repr__` methods
+  - Type checking blocks
+  - Main entry points
+  - Import error handling
 
 ### Run specific test
 

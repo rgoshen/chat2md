@@ -1,91 +1,79 @@
 # Contributing to chat2md
 
-Thank you for considering contributing to **chat2md**! 🚀
+We love your input! We want to make contributing to chat2md as easy and transparent as possible, whether it's:
 
-Whether it's bug reports, new features, documentation, or just ideas — we welcome all types of contributions.
+- Reporting a bug
+- Discussing the current state of the code
+- Submitting a fix
+- Proposing new features
+- Becoming a maintainer
 
-## 🧰 Getting Started
+## Development Process
 
-1. Fork the repository and clone your fork.
-2. Run the setup script to create your development environment:
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
-```bash
-# On macOS/Linux
-./setup_chat2md.sh
+1. Fork the repo and create your branch from `main`
+2. If you've added code that should be tested, add tests
+3. If you've changed APIs, update the documentation
+4. Ensure the test suite passes
+5. Make sure your code meets our coverage requirements
+6. Issue that pull request!
 
-# On Windows
-setup_chat2md.bat
-```
+## Code Quality Requirements
 
-3. Create a new branch for your feature or bugfix:
+### Test Coverage
 
-```bash
-git checkout -b feat/your-feature-name
-```
+We maintain high code quality through comprehensive testing:
 
-4. Make your changes, and write/update tests if applicable.
-5. Run the linter and formatter to ensure style consistency.
-6. Run all tests and verify they pass.
-7. Commit and push your changes:
+- Minimum coverage requirement: 90%
+- Branch coverage is enabled and required
+- All new code must include tests
+- Run tests with coverage: `pytest --cov=chat2md`
 
-```bash
-git add .
-git commit -m "feat: describe your change"
-git push origin feat/your-feature-name
-```
+### What's Not Counted in Coverage
 
-8. Submit a pull request with a clear description of your change.
+The following are excluded from coverage requirements:
 
-## 🧪 Code Style
+- `__repr__` methods
+- Type checking blocks
+- Main entry points
+- Import error handling
+- Debug-only code
 
-We follow [PEP8](https://peps.python.org/pep-0008/) and use:
+### Code Style
 
-```bash
-flake8 chat2md
-```
+- We use `flake8` for linting
+- Format code with `autopep8`
+- Follow PEP 8 guidelines
+- Use type hints where possible
 
-To auto-format (optional):
+## Pull Request Process
 
-```bash
-autopep8 chat2md/ --in-place --recursive --aggressive --aggressive
-```
+1. Update the README.md with details of changes to the interface
+2. Update the CHANGELOG.md with a note describing your changes
+3. The PR will be merged once you have the sign-off of at least one maintainer
+4. All tests must pass and coverage requirements must be met
 
-## 🧪 Running Tests
+## Any contributions you make will be under the MIT Software License
 
-Run all tests:
+In short, when you submit code changes, your submissions are understood to be under the same [MIT License](LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-```bash
-pytest
-```
+## Report bugs using GitHub's [issue tracker](https://github.com/rgoshen/chat2md/issues)
 
-Run a specific test file:
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/rgoshen/chat2md/issues/new/choose).
 
-```bash
-pytest tests/test_standard_output.py
-```
+## Write bug reports with detail, background, and sample code
 
-Run a specific test function with verbose output:
+**Great Bug Reports** tend to have:
 
-```bash
-pytest -v tests/test_standard_output.py::test_standard_markdown_output
-```
+- A quick summary and/or background
+- Steps to reproduce
+  - Be specific!
+  - Give sample code if you can
+- What you expected would happen
+- What actually happens
+- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
-Stop on first failure:
+## License
 
-```bash
-pytest -x
-```
-
-## ✅ Contribution Checklist
-
-- [ ] Code follows style guidelines
-- [ ] All existing and new tests pass
-- [ ] Tests are added or updated for new logic
-- [ ] Code is well-commented and clear
-- [ ] Pull request describes the change and links to any issues (if applicable)
-
-## 🙋 Questions?
-
-Feel free to open an issue or reach out to [@rgoshen](https://github.com/rgoshen).
-
-Thanks for helping make `chat2md` awesome! 🙌
+By contributing, you agree that your contributions will be licensed under its MIT License.
