@@ -2,12 +2,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional
 
+
 @dataclass
 class Message:
     author: str
     content: str
     create_time: Optional[datetime] = None
     message_id: Optional[str] = None
+
 
 @dataclass
 class Conversation:

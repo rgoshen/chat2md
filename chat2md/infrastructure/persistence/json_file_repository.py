@@ -14,43 +14,43 @@ class JsonFileRepository(ConversationRepository):
         """Load conversations from a JSON file."""
         with open(source, "r", encoding="utf-8") as f:
             data = json.load(f)
-            
+
         conversations = []
         raw_conversations = data.get("conversations", [])
-        
+
         for convo in raw_conversations:
             title = convo.get("title", "")
             mapping = convo.get("mapping", {})
-            
+
             if not mapping:
                 continue
-                
+
             messages = []
             model = ""
-            
+
             # Extract messages from the mapping
             for node in mapping.values():
                 if not isinstance(node, dict):
                     continue
-                    
+
                 message_data = node.get("message", {})
                 if not isinstance(message_data, dict):
                     continue
-                    
+
                 # Extract message content
                 content = message_data.get("content", {})
                 if isinstance(content, dict):
                     content = content.get("parts", [""])[0]
                 content = str(content).strip()
-                
+
                 if not content:
                     continue
-                    
+
                 # Extract message metadata
                 metadata = message_data.get("metadata", {})
                 if isinstance(metadata, dict):
                     model = model or metadata.get("model_slug", "")
-                
+
                 # Create message entity
                 message = Message(
                     author=message_data.get("author", {}).get("role", "unknown"),
@@ -61,7 +61,7 @@ class JsonFileRepository(ConversationRepository):
                     message_id=message_data.get("id", "")
                 )
                 messages.append(message)
-            
+
             # Create conversation entity
             conversation = Conversation(
                 title=title,
@@ -76,7 +76,7 @@ class JsonFileRepository(ConversationRepository):
                 model=model
             )
             conversations.append(conversation)
-            
+
         return conversations
 
     def save_conversation(self, conversation: Conversation, destination: Path) -> None:

@@ -81,7 +81,7 @@ def main():
     except Chat2MDError as e:
         logger.error(str(e))
         return 1
-    except Exception as e:
+    except Exception:  # Using wildcard since logger.exception() includes the error info
         logger.exception("Unexpected error occurred")
         return 1
 
