@@ -10,10 +10,10 @@ def setup_logging(config: Config, log_file: Optional[Path] = None) -> None:
     """Configure logging for the application."""
     # Create logger
     logger = logging.getLogger("chat2md")
-    
+
     # Clear existing handlers
     logger.handlers.clear()
-    
+
     logger.setLevel(config.log_level)
 
     # Create formatters

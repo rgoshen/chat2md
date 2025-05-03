@@ -40,7 +40,11 @@ class JsonFileRepository(ConversationRepository):
                 # Extract message content
                 content = message_data.get("content", {})
                 if isinstance(content, dict):
-                    content = content.get("parts", [""])[0]
+                    parts = content.get("parts", [""])
+                    content = parts[0] if parts else ""
+                elif isinstance(content, str):
+                    # Skip if content is directly a string (invalid format)
+                    continue
                 content = str(content).strip()
 
                 if not content:

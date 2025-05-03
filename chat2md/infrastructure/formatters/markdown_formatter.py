@@ -24,7 +24,8 @@ class DefaultMarkdownFormatter(MarkdownConverter):
                 f"updated: '{conversation.update_time or ''}'",
                 f"model: '{conversation.model or ''}'",
                 "---",
-                ""
+                "",
+                ""  # Extra newline after frontmatter
             ]
             output.extend(frontmatter)
 
@@ -39,24 +40,35 @@ class DefaultMarkdownFormatter(MarkdownConverter):
                 current_time = message.create_time.strftime("%H:%M")
 
                 if last_date != current_date:
-                    output.append(f"\n## {current_date}\n")
+                    if last_date is not None:
+                        output.append("")  # Add blank line before new date section
+                    output.append(f"## {current_date}")
+                    output.append("")  # Add blank line after date header
                     last_date = current_date
 
                 # Include timestamp and message ID with author
                 output.append(
                     f"**[{current_time}] {message.author.capitalize()}:** "
-                    f"(id: `{message.message_id or ''}`):\n"
+                    f"(id: `{message.message_id or ''}`):"
                 )
             else:
                 # Only include author when not in full metadata mode
-                output.append(f"**{message.author.capitalize()}:**\n")
+                output.append(f"**{message.author.capitalize()}:**")
 
             # Format content, detecting and handling code blocks
             content = message.content.strip()
             if is_probably_code(content):
                 language = detect_language(content)
-                output.append(f"```{language}\n{content}\n```\n")
+                output.append(f"```{language}")
+                output.append(content)
+                output.append("```")
             else:
-                output.append(f"{content}\n")
+                output.append(content)
+
+            output.append("")  # Add blank line after each message
+
+        # Ensure there's a trailing newline at the end of the file
+        if not output[-1] == "":
+            output.append("")
 
         return "\n".join(output)
