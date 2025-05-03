@@ -242,55 +242,53 @@ def add(a, b):
 ```bash
 chat2md/                          # Root package
 ├── __init__.py
-├── cli.py                        # CLI entry point
-├── domain/                       # Domain layer
+├── adapters/                     # External adapters
 │   ├── __init__.py
-│   ├── entities/                 # Core business objects
-│   │   ├── __init__.py
-│   │   └── conversation.py       # Conversation and Message entities
-│   ├── exceptions.py            # Custom domain exceptions
-│   └── repositories/            # Repository interfaces
-│       ├── __init__.py
-│       └── conversation_repository.py
-├── application/                 # Application layer
-│   ├── __init__.py
-│   ├── interfaces/             # Application interfaces
-│   │   ├── __init__.py
+│   └── filesystem.py            # File system operations
+├── application/                  # Application layer
+│   ├── interfaces/              # Abstract interfaces
 │   │   └── markdown_converter.py
-│   └── use_cases/             # Business use cases
-│       ├── __init__.py
+│   └── use_cases/              # Use case implementations
 │       └── convert_conversations.py
-└── infrastructure/             # Infrastructure layer
+├── cli.py                       # CLI entry point
+├── domain/                      # Domain layer
+│   ├── __init__.py
+│   ├── entities/               # Core business objects
+│   │   ├── __init__.py
+│   │   └── conversation.py     # Conversation and Message entities
+│   ├── exceptions.py           # Domain-specific exceptions
+│   └── repositories/           # Repository interfaces
+│       └── conversation_repository.py
+├── infrastructure/             # Infrastructure layer
+│   ├── __init__.py
+│   ├── config.py              # Configuration management
+│   ├── formatters/            # Output formatters
+│   │   └── markdown_formatter.py
+│   ├── logging.py            # Logging configuration
+│   └── persistence/          # Data persistence
+│       └── json_file_repository.py
+├── parsers/                   # Data parsers
+│   ├── __init__.py
+│   └── conversation_parser.py
+├── services/                  # Service layer
+│   ├── __init__.py
+│   └── conversation_service.py
+└── utils/                     # Utility functions
     ├── __init__.py
-    ├── config.py              # Configuration management
-    ├── logging.py            # Logging setup
-    ├── formatters/           # Output formatters
-    │   ├── __init__.py
-    │   └── markdown_formatter.py
-    └── persistence/          # Storage implementations
-        ├── __init__.py
-        └── json_file_repository.py
+    ├── filename_tools.py
+    └── text_tools.py
 
 tests/                        # Test suite
 ├── __init__.py
-├── conftest.py              # Shared pytest fixtures
+├── adapters/                 # Adapter tests
+├── application/             # Application layer tests
+├── cli/                     # CLI tests
 ├── domain/                  # Domain layer tests
-│   ├── __init__.py
-│   └── test_exceptions.py
-├── application/            # Application layer tests
-│   ├── __init__.py
-│   └── test_convert_conversations.py
-└── infrastructure/        # Infrastructure layer tests
-    ├── __init__.py
-    ├── test_config.py
-    └── test_logging.py
-
-# Configuration files
-├── .coveragerc             # Coverage configuration
-├── codecov.yml            # Codecov settings
-├── pytest.ini            # Pytest configuration
-├── requirements.txt      # Project dependencies
-└── setup.py             # Package setup
+├── fixtures/                # Test fixtures
+├── infrastructure/          # Infrastructure tests
+├── parsers/                 # Parser tests
+├── services/                # Service tests
+└── utils/                   # Utility tests
 ```
 
 The project follows Clean Architecture principles:
