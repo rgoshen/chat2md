@@ -28,7 +28,22 @@ We maintain high code quality through comprehensive testing:
 - Minimum coverage requirement: 90%
 - Branch coverage is enabled and required
 - All new code must include tests
-- Run tests with coverage: `pytest --cov=chat2md`
+
+To run tests with coverage locally:
+
+```bash
+# Run tests with coverage (outputs to terminal, HTML, and XML)
+pytest
+
+# View HTML coverage report (macOS)
+open coverage_html/index.html
+```
+
+Coverage reports will be generated in:
+
+- Terminal output (immediately visible)
+- `coverage_html/` directory (detailed HTML report)
+- `coverage.xml` file (for CI/CD integration)
 
 ### What's Not Counted in Coverage
 

@@ -306,6 +306,37 @@ This separation ensures:
 - Flexible implementation swapping
 - Clear dependency direction (inward)
 
+## 🧪 Testing and Coverage
+
+The project maintains a high standard of code quality with comprehensive test coverage:
+
+### Running Tests Locally
+
+```bash
+# Run all tests with coverage reporting
+pytest
+
+# View the HTML coverage report (macOS)
+open coverage_html/index.html
+```
+
+### Coverage Reports
+
+Tests automatically generate coverage reports in multiple formats:
+
+- Terminal output with missing lines highlighted
+- Detailed HTML report in `coverage_html/` directory
+- XML report in `coverage.xml` for CI/CD integration
+
+### Coverage Requirements
+
+- Minimum coverage threshold: 90%
+- Branch coverage enabled
+- All new code must include tests
+- Excludes boilerplate code like `__repr__` methods and import error handling
+
+For more detailed information about testing and contributing, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## 🧪 Development
 
 chat2md is developed and tested with Python 3.13.3. Earlier versions may work but are not officially supported.

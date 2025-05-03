@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
@@ -15,7 +15,7 @@ class OutputConfig:
 @dataclass
 class Config:
     """Global configuration for chat2md."""
-    output: OutputConfig = OutputConfig()
+    output: OutputConfig = field(default_factory=OutputConfig)
     default_output_dir: str = "markdown_output"
     log_level: str = "INFO"
     encoding: str = "utf-8"
