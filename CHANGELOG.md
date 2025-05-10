@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/rgoshen/chat2md/compare/v0.2.3...v0.2.4) (2025-05-10)
+
+
+### 🧱 Maintenance
+
+* attempt to fix the release badge ([41071af](https://github.com/rgoshen/chat2md/commit/41071afddcb33a6ca7b0838f3aa758d983285e3a))
+
 ## [0.2.3](https://github.com/rgoshen/chat2md/compare/v0.2.2...v0.2.3) (2025-05-10)
 
 
