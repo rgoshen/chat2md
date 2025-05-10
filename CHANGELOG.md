@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/rgoshen/chat2md/compare/v0.2.2...v0.2.3) (2025-05-10)
+
+
+### 🧱 Maintenance
+
+* remove pypi release from github actions workflow ([b0ad0b3](https://github.com/rgoshen/chat2md/commit/b0ad0b38aeaa86eba2ee0241298b3a8875333ed8))
+
 ## [0.2.2](https://github.com/rgoshen/chat2md/compare/v0.2.1...v0.2.2) (2025-05-03)
 
 
