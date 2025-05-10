@@ -1,12 +1,22 @@
 from setuptools import setup, find_packages
 from pathlib import Path
+import re
+
+# Read version from version.py
+def get_version():
+    version_file = Path(__file__).parent / "chat2md" / "version.py"
+    content = version_file.read_text()
+    match = re.search(r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]', content)
+    if match:
+        return match.group(1)
+    raise RuntimeError("Unable to find version string in version.py")
 
 readme_path = Path(__file__).parent / "README.md"
 long_description = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
 setup(
     name='chat2md',
-    version='0.2.4',
+    version=get_version(),
     packages=find_packages(),
     install_requires=[
         'tqdm>=4.65.0',
