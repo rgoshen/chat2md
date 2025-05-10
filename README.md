@@ -3,7 +3,7 @@
 [![Tests](https://github.com/rgoshen/chat2md/actions/workflows/test.yml/badge.svg)](https://github.com/rgoshen/chat2md/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/rgoshen/chat2md/branch/main/graph/badge.svg)](https://codecov.io/gh/rgoshen/chat2md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![GitHub release](https://img.shields.io/github/v/release/rgoshen/chat2md?include_prereleases&sort=semver)](https://github.com/rgoshen/chat2md/releases)
+[![GitHub release](https://img.shields.io/github/v/release/rgoshen/chat2md?include_prereleases&ts=1234567890)](https://github.com/rgoshen/chat2md/releases)
 [![Python Versions](https://img.shields.io/pypi/pyversions/chat2md)](https://pypi.org/project/chat2md/)
 
 **chat2md** is a command-line tool that converts ChatGPT-style JSON exports into clean, timestamped, syntax-highlighted Markdown transcripts.
