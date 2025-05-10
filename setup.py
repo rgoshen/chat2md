@@ -6,7 +6,7 @@ long_description = readme_path.read_text(encoding="utf-8") if readme_path.exists
 
 setup(
     name='chat2md',
-    version='0.2.2',
+    version='0.2.3',
     packages=find_packages(),
     install_requires=[
         'tqdm>=4.65.0',
